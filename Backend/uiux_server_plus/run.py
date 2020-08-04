@@ -1,11 +1,12 @@
-from flask import Flask, Blueprint, jsonify, url_for
-import sqlite3
-from models import *
-import db
-import api
 import os
+from flask import Flask, Blueprint, jsonify, url_for
 import sys
+import sqlite3
 import werkzeug
+
+import api
+from DB.models import *
+from DB import db
 
 app = Flask(__name__)
 app.register_blueprint(api.chat_api)
