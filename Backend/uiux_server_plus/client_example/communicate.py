@@ -2,7 +2,8 @@ import requests
 import json
 
 # base_url = "http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/test2/"
-base_url = "http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/dotsubos-test/"
+# base_url = "http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/dotsubos-test/"
+base_url = "http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/dotsubos-test/"
 #test2はapp名. app名は任意です
 #uiuxchat3287bivsgfbivfは変更できません．セキュリティのため公開しないでください
 sec_key = "gfg43827hnfdsfai"
@@ -36,16 +37,17 @@ def json_print(caption, json_str):
     data = json.loads(str(json_str))
     print(caption)
     print(json.dumps(data, indent=2))
+    return data
 
 
 
 if __name__ == "__main__":    
-    json_print("get", post("messages", {"to":"someone","content":"hello"}))
+    # json_print("get", post("messages", {"to":"someone","content":"hello"}))
     json_print("get", post("messages", {"to":"hogesan","content":"hello"}))
     json_print("get by dst", get("messages/to/hogesan"))
     json_print("put", put("messages/32", {"content":"updated"}))
-    # json_print("updload", upload("jpeg", "canvas.jpg", 'image/jpeg'))   ## .jpg 画像を送信する。（普段はコメントアウト）
-    get("jpeg/dotsubos-test_20200802_232627_canvas.jpg")
+    json_data = json_print("updload", upload("jpeg", "canvas.jpg", 'image/jpeg'))  ## .jpg 画像を送信する。（普段はコメントアウト）
+    get("jpeg/"+json_data["result"]["file_id"])
 
     # print(post("users", {"name":"hogesan","tickets":"3"}))
     # print(post("users", {"name":"asan"}))

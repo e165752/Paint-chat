@@ -1,11 +1,12 @@
-from flask import Flask, Blueprint, jsonify, url_for
-import sqlite3
-from models import *
-import db
-import api
 import os
+from flask import Flask, Blueprint, jsonify, url_for
 import sys
+import sqlite3
 import werkzeug
+
+import api
+from DB.models import *
+from DB import db
 
 app = Flask(__name__)
 app.register_blueprint(api.chat_api)
@@ -58,17 +59,20 @@ def site_map():
         #     url = url_for(rule.endpoint, **(rule.defaults or {}))
         #     links.append((url, rule.endpoint))
 
-def daemonize():
-    pid = os.fork()
-    if pid > 0:
-        pid_file = open('python_flask.pid','w')
-        pid_file.write(str(pid)+"\n")
-        pid_file.close()
-        sys.exit()
-    if pid == 0:
-        api.create_db_session()
-        app.run(host='0.0.0.0',port=5111, debug=False)
+# def daemonize():
+#     pid = os.fork()
+#     if pid > 0:
+#         pid_file = open('python_flask.pid','w')
+#         pid_file.write(str(pid)+"\n")
+#         pid_file.close()
+#         sys.exit()
+#     if pid == 0:
+#         api.create_db_session()
+#         app.run(host='0.0.0.0',port=5111, debug=False)
+
+
 if __name__ == '__main__':
     site_map()
-    daemonize()
-    #app.run(host='0.0.0.0',port=5111, debug=True)
+    # daemonize()
+    api.create_db_session()
+    app.run(host='0.0.0.0',port=5111, debug=True)

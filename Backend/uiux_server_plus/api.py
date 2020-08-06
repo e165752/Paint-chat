@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, request, make_response, abort, send_file
-from models import *
-import db
 import urllib.parse
 import werkzeug
 import os
+
+from DB.models import *
+from DB import db
 
 chat_api = Blueprint('uiuxchat3287bivsgfbivf', __name__, url_prefix='/uiuxchat3287bivsgfbivf')
 SECRET_KEY = "gfg43827hnfdsfai"
