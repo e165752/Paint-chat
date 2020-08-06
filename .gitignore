@@ -162,5 +162,6 @@ dmypy.json
 .vscode
 
 jpg/
-
 *.sqlite3
+
+config.json

@@ -1,12 +1,8 @@
 import requests
 import json
 
-# base_url = "http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/test2/"
-# base_url = "http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/dotsubos-test/"
-base_url = "http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/dotsubos-test/"
-#test2はapp名. app名は任意です
-#uiuxchat3287bivsgfbivfは変更できません．セキュリティのため公開しないでください
-sec_key = "gfg43827hnfdsfai"
+base_url = ''
+sec_key = ''
 
 def get(endpoint):
     print()
@@ -41,7 +37,24 @@ def json_print(caption, json_str):
 
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
+    ## secret key などを読み込み。
+    with open('config.json', 'r') as cfg_f:
+        cfg_data = json.load(cfg_f)
+        print('cfg_data \n', json.dumps(cfg_data, indent=2))
+    
+    # base_URI = cfg_data['base_uri']    # to リモート サーバー
+    base_URI = cfg_data['base_uri-local_test']    # to local サーバー
+    # app_name = cfg_data['app-0']
+    app_name = cfg_data['app-1']
+    base_url = base_URI + app_name  # URLを作成。
+    if base_url[-1] is not '/':
+        base_url = base_url + '/'
+    sec_key = cfg_data['sec_key']
+
+    print('base_url : ', base_url, '\nsec_key : ', sec_key)
+    
+
     # json_print("get", post("messages", {"to":"someone","content":"hello"}))
     json_print("get", post("messages", {"to":"hogesan","content":"hello"}))
     json_print("get by dst", get("messages/to/hogesan"))
