@@ -1,5 +1,5 @@
 window.onload = function () {
-    
+
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
@@ -14,15 +14,15 @@ window.onload = function () {
         console.error('Chat socket closed unexpectedly');
     };
 
-    document.querySelector('#chat-message-input').focus();
-    document.querySelector('#chat-message-input').onkeyup = function(e) {
+    document.querySelector('#bms_send_message').focus();
+    document.querySelector('#bms_send_message').onkeyup = function(e) {
         if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#chat-message-submit').click();
+            document.querySelector('#bms_send_btn').click();
         }
     };
 
-    document.querySelector('#chat-message-submit').onclick = function(e) {
-        var messageInputDom = document.querySelector('#chat-message-input');
+    document.querySelector('#bms_send_btn').onclick = function(e) {
+        var messageInputDom = document.querySelector('#bms_send_message');
         var message = messageInputDom.value;
         chatSocket.send(JSON.stringify({
             'message': message
