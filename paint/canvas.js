@@ -193,26 +193,37 @@ window.addEventListener("load", () => {
     let base64 = canvas.toDataURL("image/jpeg");
 
     document.getElementById("download").href = base64;
+    
+    // getMessage('http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/dotsubos-test/messages/to/hogesan')
+    // getMessage('http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/dotsubos-test/messages/to/hogesan')
+
+    // postData("http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/dotsubos-test/messages", {"to":"hogesan","content":"hello"})
+    //   .then(data => console.log(JSON.stringify(data))) // JSON-string from response.json() call
+    //   .catch(error => console.error(error));
+    // postData("http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/dotsubos-test/messages", {"to":"hogesan","content":"hello"})
+    //   .then(data => console.log(JSON.stringify(data))) // JSON-string from response.json() call
+    //   .catch(error => console.error(error));
   };
 
+
   //キャンバスに文字を描く
-function drawText(){
-	var canvas = document.getElementById("draw-area");
-	var ctx = canvas.getContext('2d');
-	var text = document.getElementById("canvas_text");
-	//文字のスタイルを指定
-	ctx.font = '32px serif';
-	ctx.fillStyle = currentColor;
+  function drawText(){
+    var canvas = document.getElementById("draw-area");
+    var ctx = canvas.getContext('2d');
+    var text = document.getElementById("canvas_text");
+    //文字のスタイルを指定
+    ctx.font = '32px serif';
+    ctx.fillStyle = currentColor;
 
-	//文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
-	ctx.textBaseline = 'top'; // 中心基準ならcenter
-	ctx.textAlign = 'left'; // 中心基準ならcenter
+    //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
+    ctx.textBaseline = 'top'; // 中心基準ならcenter
+    ctx.textAlign = 'left'; // 中心基準ならcenter
 
-	//座標を指定して文字を描く（座標は画像の中心に）
-  var x = 30; //画像中心なら (canvas.width / 2)
-  var y = 30; //画像中心なら (canvas.height / 2)
-	ctx.fillText(text.value, x, y);
-}
-const text_btn = document.getElementById('input_text')
-text_btn.addEventListener('click', drawText)
+    //座標を指定して文字を描く（座標は画像の中心に）
+    var x = 30; //画像中心なら (canvas.width / 2)
+    var y = 30; //画像中心なら (canvas.height / 2)
+    ctx.fillText(text.value, x, y);
+  }
+  const text_btn = document.getElementById('input_text')
+  text_btn.addEventListener('click', drawText)
 });

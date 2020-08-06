@@ -1,5 +1,6 @@
 import os
 from flask import Flask, Blueprint, jsonify, url_for
+from flask_cors import CORS #追加
 import sys
 import sqlite3
 import werkzeug
@@ -9,6 +10,7 @@ from DB.models import *
 from DB import db
 
 app = Flask(__name__)
+CORS(app)  #追加
 app.register_blueprint(api.chat_api)
  
 @app.route('/hello', methods=['GET'])
