@@ -6,12 +6,13 @@
   - [DjangoとChannelsで簡単なチャットサーバーを構築(3)](https://blog.fantom.co.jp/?s=DjangoとChannelsで簡単なチャットサーバーを構築)
 
 ## インストール
-- pyenv や virtualenv などで、仮想環境を作ることをオススメします。
-- 必要なライブラリのインストール
-    ```
-    $ pip3 install -r oekaki_chat/requirements.txt
-    ```
-- 
+- Djangoアプリ ：server（中間）
+  - pyenv や virtualenv などで、仮想環境を作ることをオススメします。
+  - 必要なライブラリのインストール
+      ```
+      $ pip3 install -r oekaki_chat/requirements.txt
+      ```
+- UI/UX チャットログサーバー（デバッグ用ローカル）
 
 
 ## 起動

@@ -1,11 +1,30 @@
-#your_container{
-    /* 高さや幅など、好きな様に設定
-    bms_messages_containerの方で、縦横いっぱいに広がってくれるので、
-    ここで充てた高さと横幅がそのままスタイルになる仕組み */
-
-    height:600px;/*ここはご自由に*/
-    width: 50%;/*ここはご自由に*/
+/* コンテナ */
+#container {
+    display: grid;
+    grid-template-rows: 100px 100px 1fr ;
+    grid-template-columns: 150px 150px 1fr;
 }
+
+/* アイテム */
+#itemA {
+    grid-row: span 2;
+    /*grid-row-start:1;
+    grid-row-end:2;*//* 縦 */
+    grid-column: 1 / 2;/* 横 */
+    background: #f88;
+}
+#itemB {
+    grid-row: span 2;/* 縦 */
+    grid-column: 2 / 3 ;/* 横 */
+    background: #8f8;
+}
+#itemC {
+    grid-row: span 2; /* 縦 */
+    height: 600px;
+    grid-column: 3 / span 2;/* 横 */
+    background: #88f;
+}
+
 /* チャットの外側部分① */
 #bms_messages_container{
     height: 100%;/*your_containerに対して100%になる */
@@ -55,7 +74,7 @@
         white-space: normal;/*指定widthに合わせて、文字を自動的に改行*/
     }
 .bms_message_content{
-                padding: 20px;/*文字や画像（コンテンツ）の外側に隙間を入れる*/
+                padding: 5px;/*文字や画像（コンテンツ）の外側に隙間を入れる*/
             }
     /* メッセージ１（左側） */
     .bms_left {
@@ -69,18 +88,7 @@
                 border-radius: 0px 0px 0px 0px;/*左下だけ尖らせて吹き出し感を出す*/
                 margin-right: 50px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
             }
-    /* メッセージ２（右側） */
-    .bms_right {
-        float: right;/*吹き出しをbms_messagesに対して右寄せ*/
-        line-height: 1.3em;
-    }
-.bms_right .bms_message_box {
-                color: #fff;/*テキストを白にする*/
-                background: #13178E;
-                border: 2px solid #13178E;
-                border-radius: 0px 0px 0px 0px;/*右下だけ尖らせて吹き出し感を出す*/
-                margin-left: 50px;/*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
-            }
+
     /* 回り込みを解除 */
     .bms_clear {
         clear: both; /* 左メッセージと右メッセージの回り込み(float)の効果の干渉を防ぐために必要（これが無いと、自分より下のメッセージにfloatが影響する） */
@@ -97,7 +105,8 @@
     padding: 4px;
 }
     #bms_send_message{
-        width: calc(100% - 75px);/*常に送信ボタンの横幅を引いたサイズに動的に計算*/
+        /* width: calc(100% - 75px);常に送信ボタンの横幅を引いたサイズに動的に計算*/
+	width: calc(100% - 150px);
         line-height: 16px;
         height: 48px;
         padding: 14px 6px 0px 6px;/*文字がテキストエリアの中心になる様に隙間調整*/
@@ -123,6 +132,25 @@
         box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
     }
     #bms_send_btn:hover {
+        background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
+        cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
+    }
+
+#bms_pic_btn {
+        width: 72px;
+        height: 48px;
+        font-size: 16px;
+        line-height: 3em;
+        float: right;/*bms_sendに対して右寄せ*/
+        color: #fff;
+        font-weight: bold;
+        background: #bcbcbc;
+        text-align: center;/*文字をボタン中央に表示*/
+        border: 1px solid #bbb;
+        border-radius: 4px;/*角丸*/
+        box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
+    }
+    #bms_pic_btn:hover {
         background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
         cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
     }
