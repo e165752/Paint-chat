@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/colorjoe@4.1.1/css/colorjoe.min.css"
+    />    <!-- colorjoeのcssをダウンロード-->
+
+  </head>
+  <body>
+    <div id="all-container">
+      <div id="left">
+      <span id="layerd-canvas-area">
+        <canvas
+          id="draw-area"
+          width="600px"
+          height="300px"
+          style="border: 1px solid #000000; position: absolute;"
+        ></canvas>
+        <canvas
+          id="line-width-indicator"
+          width="600px"
+          height="300px"
+          style="border: 1px solid #000000;"
+        ></canvas>
+      </span>
+
+      <p>
+        <input type="text" id="canvas_text" value="文字を入力">
+        <a href="#" id="input_text">文字を書く</a>
+      </p>
+
+      <a href="#" id="download" download="canvas.jpg">
+        送信
+      </a>
+      </div>
+
+      <div id="right">
+        <div>
+          <div>
+            太さ
+            <span id="line-width">5</span>
+          </div>
+          <input
+            id="range-selector"
+            type="range"
+            value="5"
+            min="1"
+            max="50"
+            step="0.1"
+          />
+
+          <input
+            id="line-width-number-field"
+            type="number"
+            value="5"
+            min="1"
+            max="50"
+            step="0.1"
+          />
+        </div>
+        <div>
+          <span id="color-palette"></span>
+        </div>
+
+        <div>
+          <button id="clear-button" class="menu">リセット</button>
+        </div>
+        <div>
+          <button id="eraser-button" class="menu">消しゴムモード</button>
+        </div>
+
+      </div>
+    </div>
+
+    <style>
+      #all-container {
+        display: flex;
+        flex-direction: row;
+        margin: 20px;
+      }
+      #right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .menu {
+        margin-bottom: 20px;
+      }
+
+      #left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      /* #download{
+        text-align: right;
+      } */
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/colorjoe@4/dist/colorjoe.min.js"></script>
+    <script src="{% static 'js/canvas.js' %}"></script>
+  </body>
+</html>
