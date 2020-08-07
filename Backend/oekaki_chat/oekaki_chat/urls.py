@@ -19,6 +19,7 @@ from django.conf.urls import include, url
 
 
 urlpatterns = [
+    url(r'^paint/', include('paint.urls')),
     url(r'^chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
 ]
