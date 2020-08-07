@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<link type="text/css" rel="stylesheet" href="a7.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</body>
+<div id="container">
+    <div id="itemA">A</div>
+    <div id="itemB">B</div>
+    <div id="itemC">
+        <!-- ヘッダー部分② -->
+            <div id="bms_chat_header">
+                <!--ステータス-->
+                <div id="bms_chat_user_status">
+                    <!--ステータスアイコン-->
+                    <div id="bms_status_icon">🔽</div>
+                    <!--ユーザー名-->
+                    <div id="bms_chat_user_name">general</div>
+                </div>
+            </div>
+
+            <!-- タイムライン部分③ -->
+            <div id="bms_messages">
+
+                <!--メッセージ１（左側）-->
+                <div class="bms_message bms_left">
+                    <div class="bms_message_box">
+                            <p>user1</p>
+                        <div class="bms_message_content">
+                            <div class="bms_message_text">
+                           わけわからないね</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+
+                <!--メッセージ２（右側）-->
+                <div class="bms_message bms_left">
+                    <div class="bms_message_box">
+				<p>user2</p>
+                        <div class="bms_message_content">
+                            <div class="bms_message_text">
+				つらいンゴね</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+            </div>
+
+            <!-- テキストボックス、送信ボタン④ -->
+            <div id="bms_send">
+                <textarea id="bms_send_message"></textarea>
+                <!--<div id="bms_send_btn">-->
+                     <a href="a1.html" id="bms_send_btn">送信</a>
+                     <a href="a2.html" id="bms_pic_btn">画像</a>
+                <!--</div>-->
+            </div>
+
+    </div>
+</div>
+</body>
+</html>
