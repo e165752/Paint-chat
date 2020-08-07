@@ -1,0 +1,23 @@
+#all-container {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+}
+
+#right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+#left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}

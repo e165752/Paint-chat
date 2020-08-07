@@ -2,7 +2,7 @@ window.addEventListener("load", () => {
   const canvas = document.querySelector("#draw-area");
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "#FFFFFF"; //筆に白い絵の具をつけて
-  ctx.fillRect(0, 0, 600, 300); //四角を描く あとで調べる
+  ctx.fillRect(0, 0, 600, 300); //四角を描く
   const context = canvas.getContext("2d");
 
   // 現在のマウスの位置を中心に、現在選択している線の太さを「○」で表現するために使用するcanvas
@@ -213,6 +213,7 @@ function drawText(){
   var y = 30; //画像中心なら (canvas.height / 2)
 	ctx.fillText(text.value, x, y);
 }
+
 const text_btn = document.getElementById('input_text')
 text_btn.addEventListener('click', drawText)
 });
