@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'channels',
     'chat',  # 追加
     'paint',  # 追加
+    '__exp_rest__',  # 追加
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

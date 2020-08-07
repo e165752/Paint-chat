@@ -36,7 +36,8 @@ def json_print(caption, json_str):
     return data
 
 
-def init_client():
+def init_client(request):
+    print(request)
     with open('config.json', 'r') as cfg_f:
         cfg_data = json.load(cfg_f)
         print('cfg_data \n', json.dumps(cfg_data, indent=2))
