@@ -21,6 +21,7 @@ window.onload = function () {
         }
     };
 
+    // 「送信」ボタン
     document.querySelector('#bms_send_btn').onclick = function(e) {
         var messageInputDom = document.querySelector('#bms_send_message');
         var message = messageInputDom.value;
@@ -29,5 +30,16 @@ window.onload = function () {
         }));
 
         messageInputDom.value = '';
+    };
+
+    // 「お絵かき」ボタン
+    document.querySelector('#bms_pic_btn').onclick = function(e) {
+        // var messageInputDom = document.querySelector('#bms_send_message');
+        // var message = messageInputDom.value;
+        // chatSocket.send(JSON.stringify({
+        //     'message': message
+        // }));
+
+        // messageInputDom.value = '';
     };
 };
