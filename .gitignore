@@ -6,8 +6,9 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
-
+#Icon
+#!/paint/icon/*.png
+Icon
 
 # Thumbnails
 ._*
