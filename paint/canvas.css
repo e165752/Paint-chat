@@ -1,0 +1,138 @@
+#all-container {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+}
+
+#right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+#left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/*  */
+
+.toggle-button-cover{
+  /* display: table-cell; */
+  /* position: relative; */
+  margin: 40px auto;
+  /* width: 200px; */
+  /* height: 140px; */
+  /* box-sizing: border-box; */
+}
+
+.button-cover, .knobs, .layer{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button{
+  position: relative;
+  top: 50%;
+  width: 148px; /*74px;*/
+  height: 72px; /*36px;*/
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r, .button.r .layer{
+  border-radius: 100px;
+}
+
+.button.b2{
+  border-radius: 2px;
+}
+
+.checkbox{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs{
+  z-index: 2;
+}
+
+.layer{
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+#button-10 .knobs:before, #button-10 .knobs:after, #button-10 .knobs span{
+  position: absolute;
+  top: 8px; /*4px;*/
+  width: 40px; /*20px;*/
+  height: 20px; /*10px;*/
+  font-size: 20px; /*20px;*/
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 18px 8px; /*9px 4px;*/
+  border-radius: 2px;
+  transition: 0.3s ease all;
+}
+
+#button-10 .knobs:before{
+  content: '';
+  left: 8px; /*4px;*/
+  background-color: #03A9F4;
+}
+
+#button-10 .knobs:after{
+  content: 'aa';
+  right: 8px; /*4px;*/
+  color: #4e4e4e;
+}
+
+#button-10 .knobs span{
+  display: inline-block;
+  left: 8px; /*4px;*/
+  color: #fff;
+  z-index: 1;
+}
+
+#button-10 .checkbox:checked + .knobs span{
+  color: #4e4e4e;
+}
+
+#button-10 .checkbox:checked + .knobs:before{
+  left: 84px; /*42px;*/
+  background-color: #4169e1; /*#F44336;*/
+}
+
+#button-10 .checkbox:checked + .knobs:after{
+  color: #fff;
+}
+
+#button-10 .checkbox:checked ~ .layer{
+  background-color: #b0c4de; /*#fcebeb; ボタン押した時の背景色*/
+}
+
+img{
+  margin-top: -10px; /* 位置ズレ修正 */
+  padding: 0px;
+}
+
+/*  */
