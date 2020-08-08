@@ -162,22 +162,39 @@ window.addEventListener("load", () => {
       const width = event.target.value;
       // 線の太さを記憶している変数の値を更新する
       currentLineWidth = width;
-      rangeSelector.value = width;
+      updateLineWidth(currentLineWidth);
+      // rangeSelector.value = width;
       // 更新した線の太さ値(数値)を<input id="range-selector" type="range">の右側に表示する
-      textForCurrentSize.innerText = width;
+      // textForCurrentSize.innerText = width;
     });
     // "input"イベントをセットすることでスライド中の値も取得できるようになる。
     // ドキュメント: https://developer.mozilla.org/ja/docs/Web/HTML/Element/Input/range
 
     rangeSelector.addEventListener("input", (event) => {
       const width = event.target.value;
-      numberField.value = width;
       // 線の太さを記憶している変数の値を更新する
       currentLineWidth = width;
-
+      updateLineWidth(currentLineWidth);
+      // numberField.value = width;
       // 更新した線の太さ値(数値)を<input id="range-selector" type="range">の右側に表示する
-      textForCurrentSize.innerText = width;
+      // textForCurrentSize.innerText = width;
     });
+  }
+
+// 線の太さを更新して表示する
+  function updateLineWidth(LineWidth){
+    const textForCurrentSize = document.querySelector("#line-width");
+    const rangeSelector = document.querySelector("#range-selector");
+    const numberField = document.getElementById("line-width-number-field");
+
+    textForCurrentSize.innerText = LineWidth;
+
+    if(rangeSelector.value != LineWidth){
+      rangeSelector.value = LineWidth;
+    }
+    if(numberField.value != LineWidth){
+      numberField.value = LineWidth;
+    }
   }
 
   const switch_btn = document.getElementById('switch_pen_eraser')
@@ -198,6 +215,7 @@ window.addEventListener("load", () => {
       }
       if (previousLineWidth != null){
         currentLineWidth = previousLineWidth;
+        updateLineWidth(currentLineWidth);
       }
     }
   }
