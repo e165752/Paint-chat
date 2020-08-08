@@ -1,3 +1,7 @@
+body{
+  color: #1E426D;
+}
+
 #all-container {
   display: flex;
   flex-direction: row;
@@ -75,7 +79,7 @@
 
 .layer{
   width: 100%;
-  background-color: #ebf7fc;
+  background-color: #72bbdb; /*ペンモード背景*/
   transition: 0.3s ease all;
   z-index: 1;
 }
@@ -97,7 +101,7 @@
 #button-10 .knobs:before{
   content: '';
   left: 8px; /*4px;*/
-  background-color: #03A9F4;
+  background-color: #1B8EC0; /* ペン */
 }
 
 #button-10 .knobs:after{
@@ -124,17 +128,19 @@
   color: #4e4e4e;
 }
 
+/* 消しゴム */
 #button-10 .checkbox:checked + .knobs:before{
   left: 84px; /*42px;*/
-  background-color: #4169e1; /*#F44336;*/
+  background-color: #247082; /*#F44336;*/
 }
 
 #button-10 .checkbox:checked + .knobs:after{
   color: #fff;
 }
 
+/* 消しゴム背景 */
 #button-10 .checkbox:checked ~ .layer{
-  background-color: #b0c4de; /*#fcebeb; ボタン押した時の背景色*/
+  background-color: #6dacbd; /*#fcebeb; ボタン押した時の背景色*/
 }
 
 img{
