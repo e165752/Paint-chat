@@ -34,6 +34,17 @@ window.onload = function () {
 
     // 「お絵かき」ボタン
     document.querySelector('#bms_pic_btn').onclick = function(e) {
+
+      var win;
+      if( !win || win.closed ) {
+        // ウィンドウオブジェクトを格納した変数が存在しない or ウィンドウが閉じられている場合は，新規ウィンドウを開く。
+        win = window.open('http://127.0.0.1:8000/paint/', 'お絵かき',
+        'location=no, menubar=no, toolbar=no, scrollbars=no, width=1000, height=500');
+
+      }else{
+        win.focus();
+      }
+
         // var messageInputDom = document.querySelector('#bms_send_message');
         // var message = messageInputDom.value;
         // chatSocket.send(JSON.stringify({
