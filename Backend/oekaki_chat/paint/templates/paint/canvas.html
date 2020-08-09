@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/colorjoe@4.1.1/css/colorjoe.min.css"
     />    <!-- colorjoeのcssをダウンロード-->
+    <link rel="stylesheet" href="{% static 'css/canvas.css' %}">
 
   </head>
   <body>
@@ -40,6 +41,17 @@
       </div>
 
       <div id="right">
+        <!-- 切り替えボタン -->
+        <div class="toggle-button-cover">
+          <div class="button b2" id="button-10">
+            <input type="checkbox" class="checkbox" id="switch_pen_eraser">
+            <div class="knobs">
+              <span><img border="0" src="{% static 'icon/pen.png' %}" width="40" height="40" alt="イラスト1"></span>
+            </div>
+            <div class="layer"></div>
+          </div>
+        </div>
+        <!--  -->
         <div>
           <div>
             太さ
@@ -70,40 +82,13 @@
         <div>
           <button id="clear-button" class="menu">リセット</button>
         </div>
-        <div>
+        <!-- <div>
           <button id="eraser-button" class="menu">消しゴムモード</button>
-        </div>
+        </div> -->
 
       </div>
     </div>
 
-    <style>
-      #all-container {
-        display: flex;
-        flex-direction: row;
-        margin: 20px;
-      }
-      #right {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      .menu {
-        margin-bottom: 20px;
-      }
-
-      #left {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: center;
-      }
-
-      /* #download{
-        text-align: right;
-      } */
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/colorjoe@4/dist/colorjoe.min.js"></script>
     <script src="{% static 'js/canvas.js' %}"></script>
   </body>

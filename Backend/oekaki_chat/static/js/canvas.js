@@ -2,7 +2,7 @@ window.addEventListener("load", () => {
   const canvas = document.querySelector("#draw-area");
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "#FFFFFF"; //筆に白い絵の具をつけて
-  ctx.fillRect(0, 0, 600, 300); //四角を描く あとで調べる
+  ctx.fillRect(0, 0, 600, 300); //四角を描く
   const context = canvas.getContext("2d");
 
   // 現在のマウスの位置を中心に、現在選択している線の太さを「○」で表現するために使用するcanvas
@@ -16,6 +16,8 @@ window.addEventListener("load", () => {
   const lastPosition = { x: null, y: null };
   let isDrag = false;
   let currentColor = "#000000";
+  let previousColors = null;
+  let reviousLineWidth = null;
 
   // 現在の線の太さを記憶する変数
   // <input id="range-selector" type="range"> の値と連動する
@@ -97,13 +99,11 @@ window.addEventListener("load", () => {
     lastPosition.y = null;
   }
 
+
   function initEventHandler() {
     const clearButton = document.querySelector("#clear-button");
-    const eraserButton = document.querySelector("#eraser-button");
+    // const eraserButton = document.querySelector("#eraser-button");
     clearButton.addEventListener("click", clear);
-    eraserButton.addEventListener("click", () => {
-      currentColor = "#FFFFFF";
-    });
 
     // layeredCanvasAreaは2つのcanvas要素を保持している。2つのcanvasはそれぞれ以下の役割を持つ
     //
@@ -152,9 +152,8 @@ window.addEventListener("load", () => {
   function initConfigOfLineWidth() {
     const textForCurrentSize = document.querySelector("#line-width");
     const rangeSelector = document.querySelector("#range-selector");
-    const numberField = document.getElementById(
-      "line-width-number-field"
-    );
+    const numberField = document.getElementById("line-width-number-field");
+
     // 線の太さを記憶している変数の値を更新する
     currentLineWidth = rangeSelector.value;
 
@@ -163,22 +162,62 @@ window.addEventListener("load", () => {
       const width = event.target.value;
       // 線の太さを記憶している変数の値を更新する
       currentLineWidth = width;
-      rangeSelector.value = width;
+      updateLineWidth(currentLineWidth);
+      // rangeSelector.value = width;
       // 更新した線の太さ値(数値)を<input id="range-selector" type="range">の右側に表示する
-      textForCurrentSize.innerText = width;
+      // textForCurrentSize.innerText = width;
     });
     // "input"イベントをセットすることでスライド中の値も取得できるようになる。
     // ドキュメント: https://developer.mozilla.org/ja/docs/Web/HTML/Element/Input/range
 
     rangeSelector.addEventListener("input", (event) => {
       const width = event.target.value;
-      numberField.value = width;
       // 線の太さを記憶している変数の値を更新する
       currentLineWidth = width;
-
+      updateLineWidth(currentLineWidth);
+      // numberField.value = width;
       // 更新した線の太さ値(数値)を<input id="range-selector" type="range">の右側に表示する
-      textForCurrentSize.innerText = width;
+      // textForCurrentSize.innerText = width;
     });
+  }
+
+// 線の太さを更新して表示する
+  function updateLineWidth(LineWidth){
+    const textForCurrentSize = document.querySelector("#line-width");
+    const rangeSelector = document.querySelector("#range-selector");
+    const numberField = document.getElementById("line-width-number-field");
+
+    textForCurrentSize.innerText = LineWidth;
+
+    if(rangeSelector.value != LineWidth){
+      rangeSelector.value = LineWidth;
+    }
+    if(numberField.value != LineWidth){
+      numberField.value = LineWidth;
+    }
+  }
+
+  const switch_btn = document.getElementById('switch_pen_eraser')
+  switch_btn.addEventListener('click', checkSwitchBtn)
+
+  // swichボタン
+  function checkSwitchBtn(){
+
+    if(switch_btn.checked == true){ //消しゴム
+      console.log('消しゴムモード');
+      previousColors = currentColor;
+      previousLineWidth = currentLineWidth;
+      currentColor = "#FFFFFF";
+    }else{
+      console.log('ペンモード'); //ペン
+      if (previousColors != null){
+        currentColor = previousColors;
+      }
+      if (previousLineWidth != null){
+        currentLineWidth = previousLineWidth;
+        updateLineWidth(currentLineWidth);
+      }
+    }
   }
 
   initEventHandler();
@@ -213,6 +252,8 @@ function drawText(){
   var y = 30; //画像中心なら (canvas.height / 2)
 	ctx.fillText(text.value, x, y);
 }
+
 const text_btn = document.getElementById('input_text')
 text_btn.addEventListener('click', drawText)
+
 });
