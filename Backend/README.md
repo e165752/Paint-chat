@@ -12,6 +12,16 @@
       ```
       $ pip3 install -r oekaki_chat/requirements.txt
       ```
+  - （サーバー通信のための）環境変数ファイルを作る。
+    - `Backend/oekaki_chat/` 以下に、`.env` ファイルを作る。
+    - 以下をコピペする。
+        ```
+        # UI/UX サーバーの URL 設定など
+        SERVER_BASE_URI=http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/
+        SERVER_LOCAL_BASE_URI=http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/
+        SERVER_SEC_KEY=【先生が指定したサーバーのシークレットキー】
+        ```
+        ※ `【先生が指定したサーバーのシークレットキー】` については、[これ（リンク）](https://docs.google.com/document/d/16G-jLETGIhoDTcXDRJ09JstqPZSIeirozg8-6A02BAE/edit) から探してね！
 - ログサーバー（: server） local 版
   1. pip
       ```

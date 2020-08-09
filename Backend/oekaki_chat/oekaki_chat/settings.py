@@ -10,18 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import environ
 from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')2#52d_7*sl)c=8z-9u!&502qi3t!vq8wtb2vo!lq8yf63*k9l'
+
+# 環境変数を、.env から読み取り
+env = environ.Env()
+env.read_env('.env')
+
+SERVER_BASE_URI = env('SERVER_BASE_URI')
+print("SERVER_BASE_URI : ", SERVER_BASE_URI)
+SERVER_LOCAL_BASE_URI = env('SERVER_LOCAL_BASE_URI')
+SERVER_SEC_KEY = env('SERVER_SEC_KEY')
+print("os.environ.get('SERVER_SEC_KEY')  : ", os.environ.get('SERVER_SEC_KEY') )
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
