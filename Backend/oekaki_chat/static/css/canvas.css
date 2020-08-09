@@ -213,3 +213,13 @@ input[type="number"]{
 input[type="range"] {
   vertical-align: middle;
 }
+
+#color-palette{
+  pointer-events: auto;
+  background-color: #FFFEFA;
+}
+
+#color-palette-div{
+  /* background-color: #ebebeb; */
+  opacity: 1.0;
+}

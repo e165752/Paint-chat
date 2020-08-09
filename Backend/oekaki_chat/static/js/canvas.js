@@ -202,14 +202,23 @@ window.addEventListener("load", () => {
 
   // swichボタン
   function checkSwitchBtn(){
+    const color_palette = document.getElementById('color-palette')
+    const color_palette_div = document.getElementById('color-palette-div')
 
     if(switch_btn.checked == true){ //消しゴム
       console.log('消しゴムモード');
       previousColors = currentColor;
       previousLineWidth = currentLineWidth;
       currentColor = "#FFFFFF";
+      //カラーパレットのクリックを無効化
+      color_palette.style.pointerEvents = 'none';
+      color_palette_div.style.opacity = 0.6;
+
     }else{
       console.log('ペンモード'); //ペン
+      color_palette.style.pointerEvents = 'auto';
+      color_palette_div.style.opacity = 1.0;
+
       if (previousColors != null){
         currentColor = previousColors;
       }
