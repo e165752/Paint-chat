@@ -253,7 +253,7 @@ function drawText(){
 	ctx.fillText(text.value, x, y);
 }
 
-const text_btn = document.getElementById('input_text')
-text_btn.addEventListener('click', drawText)
+// const text_btn = document.getElementById('input_text')
+// text_btn.addEventListener('click', drawText)
 
 });
