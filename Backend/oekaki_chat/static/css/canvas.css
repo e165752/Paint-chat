@@ -106,7 +106,7 @@ body{
 
 #button-10 .knobs:after{
   content: '';
-  background: url(./icon/eraser.png);
+  background: url(../icon/eraser.png);
   background-repeat: no-repeat;
   background-size: 40px 40px;
   background-position: center;
