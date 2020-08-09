@@ -39,7 +39,7 @@ window.onload = function () {
       if( !win || win.closed ) {
         // ウィンドウオブジェクトを格納した変数が存在しない or ウィンドウが閉じられている場合は，新規ウィンドウを開く。
         win = window.open('http://127.0.0.1:8000/paint/', 'お絵かき',
-        'location=no, menubar=no, toolbar=no, scrollbars=no, width=1000, height=500');
+        'location=no, menubar=no, toolbar=no, scrollbars=no, width=920, height=450');
 
       }else{
         win.focus();
