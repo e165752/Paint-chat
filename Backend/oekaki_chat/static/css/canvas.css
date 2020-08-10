@@ -152,8 +152,13 @@ img{
 }
 /*  */
 
-#download{
+.save-send-btn{
+  text-align: center;
+}
+
+#download, #save-btn{
   width: 70px;
+  margin: 0px 3px;
   text-align: center;
   position: relative;
   display: inline-block;
@@ -167,10 +172,11 @@ img{
   transition: .4s;
 }
 
-#download:hover{
+#download:hover, #save-btn:hover{
   background: #FFFEFA;
   color: #DB7C5E;
 }
+
 
 #clear-button {
   width: 67px;
