@@ -234,6 +234,8 @@ window.addEventListener("load", () => {
 
   // 文字の太さの設定を行う機能を有効にする
   initConfigOfLineWidth();
+
+  // 保存して送信
   const button = document.getElementById("download");
   button.onclick = function() {
     let canvas = document.getElementById("draw-area");
@@ -241,6 +243,8 @@ window.addEventListener("load", () => {
     let base64 = canvas.toDataURL("image/jpeg");
 
     document.getElementById("download").href = base64;
+
+    //
   };
 
   //キャンバスに文字を描く
@@ -275,5 +279,19 @@ function showDialog(){
 }
 
 
+const save_btn_dialog = document.getElementById('save-btn-dialog')
+save_btn_dialog.addEventListener('click', savePic)
+
+function savePic(){
+  let canvas = document.getElementById("draw-area");
+  var filename = document.getElementById("filename").value;
+
+  console.dir(canvas)
+  let base64 = canvas.toDataURL("image/jpeg");
+
+  save_btn_dialog.href = base64;
+  save_btn_dialog.setAttribute('download', filename || 'noname');
+  save_btn_dialog.dispatchEvent(new CustomEvent('click'));
+}
 
 });
