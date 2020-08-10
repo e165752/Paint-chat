@@ -5,6 +5,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P<room_name>[^/]+)/$', views.room, name='room'),
+    path('', views.__exp_rest__, name='__exp_rest__'),
+    path('forecast', views.forecast, name='forecast'),    
 ]

@@ -62,10 +62,14 @@
       <div id="bms_send">
         <textarea id="bms_send_message"></textarea>
         <div id="bms_send_btn">送信</div>
+        <!-- <a href="{ % url 'send_message' %}" id="bms_send_btn">送信</a> -->
         <div id="bms_pic_btn">お絵かき</div>
-        <!--</div>-->
+        {% csrf_token %}
+        <!-- <form action="{ % url 'send_message' %}" id="bms_send_message" method="post">
+            {% csrf_token %}
+            <button type="submit" id="bms_send_btn">送信</button>
+        </form> -->
       </div>
-
     </div>
   </div>
 </body>

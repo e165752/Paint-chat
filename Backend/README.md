@@ -6,34 +6,63 @@
   - [DjangoとChannelsで簡単なチャットサーバーを構築(3)](https://blog.fantom.co.jp/?s=DjangoとChannelsで簡単なチャットサーバーを構築)
 
 ## インストール
-- Djangoアプリ ：server（中間）
+- Djangoアプリ （: client server）
   - pyenv や virtualenv などで、仮想環境を作ることをオススメします。
   - 必要なライブラリのインストール
       ```
       $ pip3 install -r oekaki_chat/requirements.txt
       ```
-- UI/UX チャットログサーバー（デバッグ用ローカル）
+  - （サーバー通信のための）環境変数ファイルを作る。
+    - `Backend/oekaki_chat/` 以下に、`.env` ファイルを作る。
+    - 以下をコピペする。
+        ```
+        # UI/UX サーバーの URL 設定など
+        SERVER_BASE_URI=http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/
+        SERVER_LOCAL_BASE_URI=http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/
+        SERVER_SEC_KEY=【先生が指定したサーバーのシークレットキー】
+        ```
+        ※ `【先生が指定したサーバーのシークレットキー】` については、[これ（リンク）](https://docs.google.com/document/d/16G-jLETGIhoDTcXDRJ09JstqPZSIeirozg8-6A02BAE/edit) から探してね！
+- ログサーバー（: server） local 版
+  1. pip
+      ```
+      $ pip3 install  flask sqlalchemy requests
+      ```
+  2. データベースの初期化
+      ```
+      cd uiux_server_plus/DB
+      python3 create_tables.py
+      cd ../..
+      ```
+  3. brew （やらなくてもできた）
+      ```
+      $ brew install  db-browser-for-sqlite
+      ```
 
 
 ## 起動
-- Djangoアプリ ：server（中間）
+- Djangoアプリ （: client server）
     ```
     $ python3 manage.py runserver
     ```
-- ブラウザ ：client
+- ブラウザ （: client）
   - チャットUI
     - http://127.0.0.1:8000/chat
-    - ルーム名を入力すると、http://127.0.0.1:8000/chat/【ルーム名】 に飛ぶ。
-      - 現在は、英語のみ対応。
-      - 英語以外のルーム名にすると、WebSocket が落ちるっぽい。
+    - ルーム名を入力すると、http://127.0.0.1:8000/chat/【ルーム名】 に飛ぶはず。
+      - 「URLに使えない文字」を入れると落ちるので注意。
+      - （なぜか WebSocket が落ちる...）
   - お絵かき機能
     - http://127.0.0.1:8000/paint
-    - ボタンから飛ぶようにする場合は、WebSocket 周りの同期もあるので、起動まではバックエンドが担当する形が良いかも？
-      - 「別ウィンドウで開く」を調査中。
+    - やること？
+      - 別ウィンドウで開く
         - https://blog.narito.ninja/detail/62
-      - サーバーへの送信などもまだなので、そこもやらないと...
+      - サーバーへの送信
         - Pythonを呼び出す方法も調査中。
         - [DjangoでGET／POSTから値を取得する方法](https://intellectual-curiosity.tokyo/2019/02/27/DjangoでGET／POSTから値を取得する方法)
+
+- ログサーバー（: server） local 版
+    ```
+    $ python3 uiux_server_plus/run.py
+    ```
 
 
 

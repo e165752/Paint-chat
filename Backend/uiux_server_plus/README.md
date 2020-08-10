@@ -14,7 +14,7 @@ UI/UX チャットサーバー の ソースコードを、ローカルで動か
     ```
 2. データベースの初期化
     ```
-    $ python3 create_tables.py
+    $ cd DB;  python3 create_tables.py;  cd ..
     ```
 3. brew （やらなくてもできた）
     ```
@@ -23,7 +23,7 @@ UI/UX チャットサーバー の ソースコードを、ローカルで動か
 
 ## サーバー 起動
 ```
-$ python3 DB/create_tables.py
+$ python3 run.py
 ```
 
 ## サーバー 動作確認

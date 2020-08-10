@@ -36,7 +36,8 @@ def json_print(caption, json_str):
     return data
 
 
-def init_client():
+def init_client(request):
+    print(request)
     with open('config.json', 'r') as cfg_f:
         cfg_data = json.load(cfg_f)
         print('cfg_data \n', json.dumps(cfg_data, indent=2))
@@ -49,12 +50,11 @@ def init_client():
     if base_url[-1] is not '/':
         base_url = base_url + '/'
     sec_key = cfg_data['sec_key']
-    return base_url, sec_key
 
 
 if __name__ == "__main__":
     ## secret key などを読み込み。
-    base_url, sec_key = init_client()
+    init_client()
     print('base_url : ', base_url, '\nsec_key : ', sec_key)
     
     # json_print("get", post("messages", {"to":"someone","content":"hello"}))
