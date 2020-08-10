@@ -262,7 +262,18 @@ function drawText(){
 	ctx.fillText(text.value, x, y);
 }
 
+// 文字入力
 // const text_btn = document.getElementById('input_text')
 // text_btn.addEventListener('click', drawText)
+
+const save_btn = document.getElementById('save-btn')
+save_btn.addEventListener('click', showDialog)
+
+function showDialog(){
+  var dialogElement = document.getElementById('save-dialog') ;
+  dialogElement.showModal();
+}
+
+
 
 });
