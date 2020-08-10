@@ -49,11 +49,12 @@ def init_client():
     if base_url[-1] is not '/':
         base_url = base_url + '/'
     sec_key = cfg_data['sec_key']
+    return base_url, sec_key
 
 
 if __name__ == "__main__":
     ## secret key などを読み込み。
-    init_client()
+    base_url, sec_key = init_client()
     print('base_url : ', base_url, '\nsec_key : ', sec_key)
     
     # json_print("get", post("messages", {"to":"someone","content":"hello"}))
