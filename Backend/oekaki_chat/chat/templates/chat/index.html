@@ -12,8 +12,9 @@
 
     <h2>ルーム一覧</h2>
     <ul class="select-room-box">
-    {% for room in room_list %}
-        <a href="/chat/{{ room.name }}">{{ room.name }}</a>
+    {% for room_name in room_list %}
+        <a href="/chat/{{ room_name }}">{{ room_name }}</a>
+        <br/>
     {% endfor %}
     </ul>
 

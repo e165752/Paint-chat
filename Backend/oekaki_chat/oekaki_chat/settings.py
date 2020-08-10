@@ -24,10 +24,10 @@ env = environ.Env()
 env.read_env('.env')
 
 SERVER_BASE_URI = env('SERVER_BASE_URI')
-print("SERVER_BASE_URI : ", SERVER_BASE_URI)
+# print("SERVER_BASE_URI : ", SERVER_BASE_URI)
 SERVER_LOCAL_BASE_URI = env('SERVER_LOCAL_BASE_URI')
 SERVER_SEC_KEY = env('SERVER_SEC_KEY')
-print("os.environ.get('SERVER_SEC_KEY')  : ", os.environ.get('SERVER_SEC_KEY') )
+# print("os.environ.get('SERVER_SEC_KEY')  : ", os.environ.get('SERVER_SEC_KEY') )
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
