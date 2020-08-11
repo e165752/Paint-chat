@@ -2,9 +2,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
+
+from io import BytesIO
+import base64
+import json
+import re
 import json
 from .scripts.communicate import *
-
+from .scripts.log_utils import *
 
 
 ### Room 選択
@@ -23,7 +28,7 @@ def get_all_rooms():
     # all_rooms = json_print("get all users", client_rooms_.get("users"))
     all_rooms = json_to_dict(client_rooms_.get("users"))
     ## room の {"__room_name" : "__id"} 辞書を作成する。
-    print('[Info] all_rooms : ', all_rooms)
+    print_info_x('views', locals().items(), all_rooms)
     if 'error' in all_rooms.keys():
         return []
     return [r['name'] for r in all_rooms["result"]]
@@ -37,10 +42,10 @@ def room(request, room_name):
     if room_name not in get_all_rooms():
         ### post
         client_rooms_ = UIUX_ClientxChat('--rooms') 
-        print('\n[Info] {} が見つかりませんでした。Room を新規作成します！'.format(room_name))
+        print_info('views', room_name, 'が見つかりませんでした。Room を新規作成します！')
         json_str = client_rooms_.post("users", {"name": room_name})
         json_print("[Info] Post new Room.", json_str)
-    print('\n[Info] room_name : ', room_name)
+    print_info_x('views', locals().items(), room_name)
     return render(request, 'chat/room.html', {
         'room_name_json': mark_safe(json.dumps(room_name))
     })
@@ -52,15 +57,30 @@ def room(request, room_name):
 #     json_print("[Info] Put (Update) room name.", json_str)
 #     return HttpResponse()
 
-# def send_message(request):
-#     print(in_room_name)
-#     print(request)
+
+def send_message(request):
+    post_dict = json.loads(request.body)
+
 #     if request.method == 'POST':
-#         if 'bms_send_btn' in request.POST:
-#             # ボタン1がクリックされた場合の処理
-#             print('[Info] bms_send_btn')
-#         elif 'bms_pic_btn' in request.POST:
-#             # ボタン2がクリックされた場合の処理
-#             print('[Info] bms_pic_btn')
+#         # request.bodyに入っている。
+#         message = post_dict['message']
+#         loc_path = post_dict['loc_path']
+#         room_name = loc_path.split('/')[-1]
+#         print('[Info] loc_path, room_name : ', loc_path, room_name)
+#         print('[Info] message : ', message)
+
+#         # メッセージをサーバーに送信する。
+#         _client = UIUX_ClientxChat('--rooms') 
+#         # json_print("post", _client.post("messages", {"to":"hogesan","content":"hello"}))
+#         file_id = json_to_dict(_client.post("messages", {"to":"hogesan","content":"hello"}))#["result"]["file_id"]
+#         # サーバーからの返答の file_id を、メッセージ のコンテンツに追加して、メッセージを送信する。
+#         # res = {
+#         #   "result": {
+#         #     "file_id": "dotsubos-test_--rooms_20200811_170847_paint_scripts_tmp.jpg"
+#         #   }
+#         # }
+#         print('[Info] file_id : ', file_id)
+        
+#     return HttpResponse()
 
 

@@ -234,10 +234,10 @@ window.addEventListener("load", () => {
 
   // 文字の太さの設定を行う機能を有効にする
   initConfigOfLineWidth();
+  //*--  「送信」ボタン  --*//
+  // CSRF token 設定
   axios.defaults.xsrfCookieName = 'csrftoken'
   axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-  // 「送信」ボタン
-
   // 保存して送信
   const button = document.getElementById("download");
   button.onclick = function() {
@@ -247,16 +247,10 @@ window.addEventListener("load", () => {
     let base64img = canvas.toDataURL("image/jpeg");
     // document.getElementById("download").href = base64;
 
-    var loc_host = location.hostname,
-    loc_port = location.port,
-    loc_path = location.pathname;
-    // console.info("loc_host, loc_path : ", loc_host, loc_path);
-    var loc_paint = `http://${loc_host}:${loc_port}/paint/receive${loc_path}`
-    console.info("loc_paint : ", loc_paint);
-
+    console.log(location.pathname)
     axios.post('/paint/receive/', {
       imgBase64: base64img,
-      loc_path : loc_path,
+      loc_path : location.pathname,
     })
     .then(function (response) {
       console.log(response);
