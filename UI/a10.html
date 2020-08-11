@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<link type="text/css" rel="stylesheet" href="a10.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script><script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="chat.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/7.17.1/firebase-app.js"></script>
+<script src="/__/firebase/7.17.1/firebase-analytics.js"></script>
+<script src="/__/firebase/a10.js"></script>
+
+<script>
+	apiKey: "各自",
+	authDomain: "各自",
+	databaseURL: "https://各自",
+	storageBucket: "各自",
+	messagingSenderId: "各自"
+      };
+      firebase.initializeApp(config);
+</script>
+
+<style>
+     ul > li:first-child {
+     <!--  color: black;-->
+     <!--  font-size: 25px;-->
+     float: left;
+     line-height: 1.3em;
+    }
+     ul > li:nth-child(2n) {
+     background: #fff;
+     border: 2px solid #13178E;
+     color: blue;
+     margin-right: 50px;
+     word-wrap: break-word;
+     white-space: normal;
+padding: 0 14px;
+margin: 10px 0;
+    }
+     ul > li:nth-child(2n):before {
+     content:"user："
+    }
+</style>
+
+
+<style>
+label > input {
+display:none; /* アップロードボタンのスタイルを無効にする */
+}
+label {
+position:absolute;
+right:165px;
+width: 72px;
+height: 48px;
+font-size: 16px;
+line-height: 3em;
+float: right;
+color: #fff; /* ラベルテキストの色を指定する */
+font-weight: bold;
+background-color: #bcbcbc;/* ラベルの背景色を指定する */
+text-align: center;
+border: 1px solid #bbb;/* ラベルのボーダーを指定する */
+border-radius: 4px;/*角丸*/
+box-sizing: border-box;
+}
+
+</style>
+
+
+
+
+
+<div id="container">
+    <div id="itemA">A</div>
+    <div id="itemB">B</div>
+    <div id="itemC">
+        <!-- ヘッダー部分② -->
+            <div id="bms_chat_header">
+                <!--ステータス-->
+                <div id="bms_chat_user_status">
+                    <!--ステータスアイコン-->
+                    <div id="bms_status_icon">🔽</div>
+                    <!--ユーザー名-->
+                   <!-- <div id="bms_chat_user_name">general</div>-->
+ <!--<textarea name="" id="jsi-name" cols="10" rows="1"></textarea>-->
+ <div name="" id="jsi-name"></div>
+                </div>
+            </div>
+
+            <!-- タイムライン部分③ -->
+            <div id="bms_messages">
+
+
+
+
+<ul id="jsi-board" style="list-style:none;">
+<!--<ul id="jsi-board">-->
+</ul>
+            </div>
+
+
+            <!-- テキストボックス、送信ボタン④ -->
+            <div id="bms_send">
+                <!-- <textarea id="bms_send_message"></textarea>-->
+<textarea name="" id="jsi-msg" cols="95" rows="2"></textarea>
+
+
+<label for="file_upload">
+画像
+<input type="file" id="file_upload">
+</label>
+<button id="bms_pic_btn">
+絵
+</button>
+<button id="bms_send_btn">
+<div name="button" id="jsi-button">送信</div></button>
+                  <!--   <a href="a2.html" id="bms_pic_btn">画像</a> -->
+                <!--</div>-->
+            </div>
+
+    </div>
+</div>
+</body>
+</html>
