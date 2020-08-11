@@ -35,14 +35,20 @@ window.onload = function () {
     // 「お絵かき」ボタン
     document.querySelector('#bms_pic_btn').onclick = function(e) {
         var win;
-        if( !win || win.closed ) {
+        if (!win || win.closed) {
+            var loc_host = location.hostname,
+                loc_port = location.port,
+                loc_path = location.pathname;
+            // console.info("loc_host, loc_path : ", loc_host, loc_path);
+            var loc_paint = `http://${loc_host}:${loc_port}/paint${loc_path}`
+            console.info("loc_paint : ", loc_paint);
             // ウィンドウオブジェクトを格納した変数が存在しない or ウィンドウが閉じられている場合は，新規ウィンドウを開く。
-            win = window.open('http://127.0.0.1:8000/paint/', 'お絵かき',
-            'location=no, menubar=no, toolbar=no, scrollbars=no, width=930, height=450');
+            win = window.open(loc_paint, 'お絵かき',
+                    'menubar=no, toolbar=no, scrollbars=no, '
+                    + 'width=930, height=450');
         }else{
             win.focus();
         }
-
-        console.info(win);
     };
+
 };

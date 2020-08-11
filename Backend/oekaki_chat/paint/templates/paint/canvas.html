@@ -38,23 +38,23 @@
         ></canvas>
       </span>
 
-      <!-- <p>
-        <input type="text" id="canvas_text" value="文字を入力">
-        <a href="#" id="input_text">文字を書く</a>
-      </p> -->
+        <!-- <p>
+            <input type="button" id="download" value="送信" onclick="sendBase64ToDjango">
+            <i class="fas fa-backward fa-flip-horizontal"></i>
+        </p> -->
+        <div class="save-sand-btn">
+            <a href="#" id="save-btn">
+              <i class="fas fa-download"></i>  保存
+              <!-- <span>送信</span> -->
+            </a>
 
-      <div class="save-sand-btn">
-      <a href="#" id="save-btn">
-        <i class="fas fa-download"></i>  保存
-        <!-- <span>送信</span> -->
-      </a>
-
-      <a href="#" id="download" download="canvas.jpg">
-        <i class="fas fa-backward fa-flip-horizontal"></i>  送信
-        <!-- <span>送信</span> -->
-      </a>
-    </div>
-
+            <form action="{% url 'receiveAndSendJPG' %}" method="post">
+                {% csrf_token %}
+                <a id="download" download="canvas.jpg">
+                    <i class="fas fa-backward fa-flip-horizontal"></i>  送信
+                </a>
+            </form>
+        </div>
       </div>
 
       <div id="right">
@@ -103,6 +103,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/colorjoe@4/dist/colorjoe.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{% static 'js/canvas.js' %}"></script>
   </body>
 
