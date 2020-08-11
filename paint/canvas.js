@@ -20,6 +20,9 @@ window.addEventListener("load", () => {
   // 現在の線の太さを記憶する変数
   // <input id="range-selector" type="range"> の値と連動する
   let currentLineWidth = 1;
+  //マウスストーカー, iventが起きた時
+  var stalker = document.querySelector("#stalker");
+
 
   function draw(x, y) {
     if (!isDrag) {
@@ -135,7 +138,7 @@ window.addEventListener("load", () => {
 
       // 実際に線を引くcanvasに描画を行う。(ドラッグ中のみ線の描画を行う)
       draw(event.layerX, event.layerY);
-
+      
       // 現在のマウスの位置を中心として、線の太さを「○」で表現するためのcanvasに描画を行う
       showLineWidthIndicator(event.layerX, event.layerY);
     });
@@ -183,7 +186,6 @@ window.addEventListener("load", () => {
 
   initEventHandler();
   initColorPalette();
-
   // 文字の太さの設定を行う機能を有効にする
   initConfigOfLineWidth();
   const button = document.getElementById("download");
@@ -213,6 +215,9 @@ function drawText(){
   var y = 30; //画像中心なら (canvas.height / 2)
 	ctx.fillText(text.value, x, y);
 }
+
+
 const text_btn = document.getElementById('input_text')
 text_btn.addEventListener('click', drawText)
 });
+

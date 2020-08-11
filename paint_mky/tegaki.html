@@ -84,6 +84,27 @@ var mf=false;
       var png = can.toDataURL();
       document.getElementById("newImg").src = png;
   }
+  function onMouseOver(){
+    draw();
+  }
+  function onMouseOut(){
+    clearCan();
+  }
+  function draw(){
+    var ctx = canvas.getContext('2d');
+    
+    ctx.font = '32px serif';
+    ctx.fillStyle = currentColor;
+
+  //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
+    ctx.textBaseline = 'top'; // 中心基準ならcenter
+    ctx.textAlign = 'left'; // 中心基準ならcenter
+
+  //座標を指定して文字を描く（座標は画像の中心に）
+    var x = 30; //画像中心なら (canvas.width / 2)
+    var y = 30; //画像中心なら (canvas.height / 2)
+    ctx.fillText("hellow", x, y);
+  }
 </script>
 </head>
 <body onload="mam_draw_init();">
