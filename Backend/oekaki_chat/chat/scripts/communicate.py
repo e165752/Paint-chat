@@ -9,8 +9,8 @@ class UIUX_ClientxChat():
         super().__init__()
         self.app_name = 'dotsubos-test'
         self.room_name = room_name
-        # self.base_uri = os.environ.get('SERVER_LOCAL_BASE_URI')
-        self.base_uri = os.environ.get('SERVER_BASE_URI')
+        self.base_uri = os.environ.get('SERVER_LOCAL_BASE_URI')
+        # self.base_uri = os.environ.get('SERVER_BASE_URI')
         print('[Info] self.base_uri : ', self.base_uri)
         
         self.room_uri = urljoin(self.base_uri, '{}_{}/'.format(self.app_name, self.room_name))

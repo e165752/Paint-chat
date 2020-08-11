@@ -40,7 +40,7 @@ def room(request, room_name):
         print('\n[Info] {} が見つかりませんでした。Room を新規作成します！'.format(room_name))
         json_str = client_rooms_.post("users", {"name": room_name})
         json_print("[Info] Post new Room.", json_str)
-    print('\n[Info] in_room_name : ', room_name)
+    print('\n[Info] room_name : ', room_name)
     return render(request, 'chat/room.html', {
         'room_name_json': mark_safe(json.dumps(room_name))
     })

@@ -234,13 +234,38 @@ window.addEventListener("load", () => {
 
   // 文字の太さの設定を行う機能を有効にする
   initConfigOfLineWidth();
+  axios.defaults.xsrfCookieName = 'csrftoken'
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+  // 「送信」ボタン
   const button = document.getElementById("download");
   button.onclick = function() {
+    console.info('[Info] download onclick()')
     let canvas = document.getElementById("draw-area");
-    console.dir(canvas)
-    let base64 = canvas.toDataURL("image/jpeg");
+    // console.dir(canvas)
+    let base64img = canvas.toDataURL("image/jpeg");
+    // document.getElementById("download").href = base64;
 
-    document.getElementById("download").href = base64;
+    var loc_host = location.hostname,
+    loc_port = location.port,
+    loc_path = location.pathname;
+    // console.info("loc_host, loc_path : ", loc_host, loc_path);
+    var loc_paint = `http://${loc_host}:${loc_port}/paint/receive${loc_path}`
+    console.info("loc_paint : ", loc_paint);
+
+    axios.post('/paint/receive/', {
+      imgBase64: base64img,
+      loc_path : loc_path,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    // 親ウィンドウを更新する。
+    window.opener.location.reload();
+    window.close();
   };
 
   //キャンバスに文字を描く
