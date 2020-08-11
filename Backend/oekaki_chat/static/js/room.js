@@ -45,7 +45,7 @@ window.onload = function () {
             // ウィンドウオブジェクトを格納した変数が存在しない or ウィンドウが閉じられている場合は，新規ウィンドウを開く。
             win = window.open(loc_paint, 'お絵かき',
                     'menubar=no, toolbar=no, scrollbars=no, '
-                    + 'width=920, height=450');
+                    + 'width=930, height=450');
         }else{
             win.focus();
         }

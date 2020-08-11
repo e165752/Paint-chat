@@ -42,12 +42,19 @@
             <input type="button" id="download" value="送信" onclick="sendBase64ToDjango">
             <i class="fas fa-backward fa-flip-horizontal"></i>
         </p> -->
-        <form action="{% url 'receiveAndSendJPG' %}" method="post">
-            {% csrf_token %}
-            <div id="download">
-                <i class="fas fa-backward fa-flip-horizontal"></i>  送信
-            </div>
-        </form>
+        <div class="save-sand-btn">
+            <a href="#" id="save-btn">
+              <i class="fas fa-download"></i>  保存
+              <!-- <span>送信</span> -->
+            </a>
+
+            <form action="{% url 'receiveAndSendJPG' %}" method="post">
+                {% csrf_token %}
+                <a id="download" download="canvas.jpg">
+                    <i class="fas fa-backward fa-flip-horizontal"></i>  送信
+                </a>
+            </form>
+        </div>
       </div>
 
       <div id="right">
@@ -99,4 +106,13 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{% static 'js/canvas.js' %}"></script>
   </body>
+
+  <dialog id="save-dialog">
+	<p>保存名</p>
+  <p style="font-size: 13px">半角英数字のみ</p>
+	<p><input id='filename' type="text" placeholder="name"></p>
+	<p><a href="#" id='save-btn-dialog' onclick="this.parentNode.parentNode.close()">保存</a></p>
+</dialog>
+
+
 </html>

@@ -32,13 +32,11 @@ def receiveAndSendJPG(request):
         # print('[Info] dic.dict : ', dic.dict())
         canvasData = post_dict['imgBase64']
         loc_path = post_dict['loc_path']
-        # print(request)
-
-        print('[Info] canvasData : ', canvasData)
         print('[Info] loc_path : ', loc_path)
+        
         im_base64 = re.sub('^data:image/.+;base64,', '', canvasData)
         # base64 str を表示してみる。 
-        print(im_base64)
+        # print(im_base64)
         im = Image.open(BytesIO(base64.b64decode(im_base64)))
         # 画像を表示してみる。
         im.show()

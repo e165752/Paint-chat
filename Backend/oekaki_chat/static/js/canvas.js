@@ -237,6 +237,8 @@ window.addEventListener("load", () => {
   axios.defaults.xsrfCookieName = 'csrftoken'
   axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
   // 「送信」ボタン
+
+  // 保存して送信
   const button = document.getElementById("download");
   button.onclick = function() {
     console.info('[Info] download onclick()')
@@ -263,6 +265,8 @@ window.addEventListener("load", () => {
       console.log(error);
     });
 
+    document.getElementById("download").href = base64img;
+
     // 親ウィンドウを更新する。
     window.opener.location.reload();
     window.close();
@@ -287,7 +291,32 @@ function drawText(){
 	ctx.fillText(text.value, x, y);
 }
 
+// 文字入力
 // const text_btn = document.getElementById('input_text')
 // text_btn.addEventListener('click', drawText)
+
+const save_btn = document.getElementById('save-btn')
+save_btn.addEventListener('click', showDialog)
+
+function showDialog(){
+  var dialogElement = document.getElementById('save-dialog') ;
+  dialogElement.showModal();
+}
+
+
+const save_btn_dialog = document.getElementById('save-btn-dialog')
+save_btn_dialog.addEventListener('click', savePic)
+
+function savePic(){
+  let canvas = document.getElementById("draw-area");
+  var filename = document.getElementById("filename").value;
+
+  console.dir(canvas)
+  let base64 = canvas.toDataURL("image/jpeg");
+
+  save_btn_dialog.href = base64;
+  save_btn_dialog.setAttribute('download', filename || 'noname');
+  save_btn_dialog.dispatchEvent(new CustomEvent('click'));
+}
 
 });
