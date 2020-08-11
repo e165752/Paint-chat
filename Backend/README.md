@@ -16,9 +16,11 @@
     - `Backend/oekaki_chat/` 以下に、`.env` ファイルを作る。
     - 以下をコピペする。
         ```
-        # UI/UX サーバーの URL 設定など
+        ### UI/UX サーバー URI（コメントアウトで切り替え）
         SERVER_BASE_URI=http://db.denchu.cloud:5111/uiuxchat3287bivsgfbivf/
-        SERVER_LOCAL_BASE_URI=http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/
+        # SERVER_BASE_URI=http://0.0.0.0:5111/uiuxchat3287bivsgfbivf/
+
+        ### セキュリティーキー
         SERVER_SEC_KEY=【先生が指定したサーバーのシークレットキー】
         ```
         ※ `【先生が指定したサーバーのシークレットキー】` については、[これ（リンク）](https://docs.google.com/document/d/16G-jLETGIhoDTcXDRJ09JstqPZSIeirozg8-6A02BAE/edit) から探してね！
@@ -42,6 +44,7 @@
 ## 起動
 - Djangoアプリ （: client server）
     ```
+    $ cd oekaki_chat/
     $ python3 manage.py runserver
     ```
 - ブラウザ （: client）
@@ -60,8 +63,10 @@
         - [DjangoでGET／POSTから値を取得する方法](https://intellectual-curiosity.tokyo/2019/02/27/DjangoでGET／POSTから値を取得する方法)
 
 - ログサーバー（: server） local 版
+  - ローカルで試す場合
     ```
-    $ python3 uiux_server_plus/run.py
+    $ cd uiux_server_plus/
+    $ python3 run.py
     ```
 
 
