@@ -152,8 +152,13 @@ img{
 }
 /*  */
 
-#download{
+.save-send-btn{
+  text-align: center;
+}
+
+#download, #save-btn{
   width: 70px;
+  margin: 0px 3px;
   text-align: center;
   position: relative;
   display: inline-block;
@@ -167,10 +172,11 @@ img{
   transition: .4s;
 }
 
-#download:hover{
+#download:hover, #save-btn:hover{
   background: #FFFEFA;
   color: #DB7C5E;
 }
+
 
 #clear-button {
   width: 67px;
@@ -198,7 +204,7 @@ img{
   /* background: #f5f5f5; */
 }
 
-input[type="number"]{
+input[type="number"], input[type="text"]{
   -moz-appearance: none;
   -webkit-appearance: none;
   -webkit-box-shadow: none;
@@ -208,6 +214,7 @@ input[type="number"]{
   background-color: #e1ebf0;
   font-size: 15px;
   color: #1E426D;
+  border-bottom: 1px solid #96c1d6;
 }
 
 input[type="range"] {
@@ -222,4 +229,25 @@ input[type="range"] {
 #color-palette-div{
   /* background-color: #ebebeb; */
   opacity: 1.0;
+}
+
+#save-dialog{
+  position: absolute;
+  left: 0%;
+  top: 30%;
+  width: 200px;
+  text-align: center;
+  border: 1px solid #1E426D;
+  /* left: 460px;
+  top: 225px; */
+  background-color: #FFFFFF;
+}
+
+#save-btn-dialog{
+  display: inline-block;
+  padding: 0em 0.5em;
+  text-decoration: none;
+  color: #1B8EC0;
+  border: solid 2px #1B8EC0;
+  border-radius: 3px;
 }
