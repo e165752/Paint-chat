@@ -3,27 +3,41 @@ window.onload = function () {
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
+    
+    var board = document.querySelector('#jsi-board');
 
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        // document.querySelector('#chat-log').value += (message + '\n');
+
+        addText('user1')
+        addText(message);
+        console.log('[Info][chatSocket] message : ', msgDom[0]);
     };
 
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
 
-    document.querySelector('#bms_send_message').focus();
-    document.querySelector('#bms_send_message').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#bms_send_btn').click();
-        }
-    };
+    //受け取り後の処理
+    function addText(json){
+        var msgDom = $('<li>');
+        msgDom.html(json);
+        
+        board.append(msgDom[0]);
+    }
+ 
+    // document.querySelector('#bms_send_message').focus();
+    // document.querySelector('#bms_send_message').onkeyup = function(e) {
+    //     if (e.keyCode === 13) {  // enter, return
+    //         document.querySelector('#bms_send_btn').click();
+    //     }
+    // };
 
     // 「送信」ボタン
     document.querySelector('#bms_send_btn').onclick = function(e) {
-        var messageInputDom = document.querySelector('#bms_send_message');
+        var messageInputDom = document.querySelector('#jsi-msg');
         var message = messageInputDom.value;
         chatSocket.send(JSON.stringify({
             'message': message
