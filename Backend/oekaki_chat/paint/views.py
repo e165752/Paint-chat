@@ -8,6 +8,8 @@ import base64
 import json
 import re
 
+from .scripts.communicate import *
+
 
 # Create your views here.
 def canvas(request, room_name):
@@ -20,8 +22,8 @@ def receiveAndSendJPG(request):
     canvasData = request.POST.get('imgBase64', '')
 
     # res_data = base64.b64decode(request.body)
-    print('[Info] request.body : ', request.body)
-    print('[Info] json.loads(request.body) : ', json.loads(request.body))
+    # print('[Info] request.body : ', request.body)
+    # print('[Info] json.loads(request.body) : ', json.loads(request.body))
     post_dict = json.loads(request.body)
 
     if request.method == 'POST':
@@ -33,13 +35,29 @@ def receiveAndSendJPG(request):
         canvasData = post_dict['imgBase64']
         loc_path = post_dict['loc_path']
         print('[Info] loc_path : ', loc_path)
-        
+
         im_base64 = re.sub('^data:image/.+;base64,', '', canvasData)
         # base64 str を表示してみる。 
         # print(im_base64)
         im = Image.open(BytesIO(base64.b64decode(im_base64)))
         # 画像を表示してみる。
-        im.show()
+        # im.show()
+
+        # tmp.jpg ファイルにするのが一番楽だったので、それで。
+        jpg_path = 'paint/scripts/tmp.jpg'
+        im.save(jpg_path, quality=100)
+
+        # 画像をサーバーに送信する。
+        _client = UIUX_ClientxChat('--rooms') 
+        # json_print("updload", _client.upload("jpeg", jpg_path, 'image/jpeg'))
+        file_id = json_to_dict(_client.upload("jpeg", jpg_path, 'image/jpeg'))["result"]["file_id"]
+        # サーバーからの返答の file_id を、メッセージ のコンテンツに追加して、メッセージを送信する。
+        # res = {
+        #   "result": {
+        #     "file_id": "dotsubos-test_--rooms_20200811_170847_paint_scripts_tmp.jpg"
+        #   }
+        # }
+        print('[Info] file_id : ', file_id)
         
     return HttpResponse()
 
