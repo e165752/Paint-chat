@@ -57,8 +57,7 @@ if __name__ == "__main__":
     base_url, sec_key = init_client()
     print('base_url : ', base_url, '\nsec_key : ', sec_key)
     
-    # json_print("get", post("messages", {"to":"someone","content":"hello"}))
-    json_print("get", post("messages", {"to":"hogesan","content":"hello"}))
+    json_print("post", post("messages", {"to":"hogesan","content":"hello"}))
     json_print("get by dst", get("messages/to/hogesan"))
     json_print("put", put("messages/32", {"content":"updated"}))
     json_data = json_print("updload", upload("jpeg", "canvas.jpg", 'image/jpeg'))  ## .jpg 画像を送信する。（普段はコメントアウト）

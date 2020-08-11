@@ -8,38 +8,50 @@ import base64
 import json
 import re
 
+from .scripts.communicate import *
+from .scripts.log_utils import *
+
 
 # Create your views here.
 def canvas(request, room_name):
-    print('\n[Info] room_name : ', room_name)
+    print_info_x('views', locals().items(), room_name)
     return render(request, 'paint/canvas.html', {})
 
 
 def receiveAndSendJPG(request):
-    canvasData = request.POST.get('canvasData', '')
-    canvasData = request.POST.get('imgBase64', '')
-
-    # res_data = base64.b64decode(request.body)
-    print('[Info] request.body : ', request.body)
-    print('[Info] json.loads(request.body) : ', json.loads(request.body))
-    post_dict = json.loads(request.body)
-
     if request.method == 'POST':
+        print('\n[Info]  ~~[receiveAndSendJPG]~~')
         # request.bodyに入っている。
-        # dic = QueryDict(request.body, encoding='utf-8')  #, encoding='utf-8'
-        # print('[Info] dic : ', dic)
-        # print('[Info] dic.keys : ', dic.keys())
-        # print('[Info] dic.dict : ', dic.dict())
+        post_dict = json.loads(request.body)
+        # データを抽出する。
         canvasData = post_dict['imgBase64']
-        loc_path = post_dict['loc_path']
-        print('[Info] loc_path : ', loc_path)
-        
+        # print_info_x('views', locals().items(), canvasData)
+        loc_path = post_dict['loc_path'].strip("/") 
+        room_name = loc_path.split('/')[-1]
+        print_info_x('views', locals().items(), loc_path, room_name)
+
         im_base64 = re.sub('^data:image/.+;base64,', '', canvasData)
         # base64 str を表示してみる。 
         # print(im_base64)
         im = Image.open(BytesIO(base64.b64decode(im_base64)))
         # 画像を表示してみる。
-        im.show()
+        # im.show()
+
+        # tmp.jpg ファイルにするのが一番楽だったので、それで。
+        jpg_path = 'paint/scripts/tmp.jpg'
+        im.save(jpg_path, quality=100)
+
+        # 画像をサーバーに送信する。
+        _client = UIUX_ClientxChat(room_name) 
+        # json_print("updload", _client.upload("jpeg", jpg_path, 'image/jpeg'))
+        file_id = json_to_dict(_client.upload("jpeg", jpg_path, 'image/jpeg'))["result"]["file_id"]
+        # サーバーからの返答の file_id を、メッセージ のコンテンツに追加して、メッセージを送信する。
+        # res = {
+        #   "result": {
+        #     "file_id": "dotsubos-test_--rooms_20200811_170847_paint_scripts_tmp.jpg"
+        #   }
+        # }
+        print_info_x('views', locals().items(), file_id)
         
     return HttpResponse()
 

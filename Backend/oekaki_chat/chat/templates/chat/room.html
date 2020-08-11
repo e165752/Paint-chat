@@ -1,82 +1,116 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ja">
+  <head>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{% static 'css/bmesse.css' %}"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>お絵かきチャット</title>
+  </head>
 
-<head>
-  <link type="text/css" rel="stylesheet" href="{% static 'css/bmesse.css' %}" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>またもすと</title>
-</head>
+  <body>
+    <style>
+      ul > li:first-child {
+        /* <!--  color: black;-->
+          <!--  font-size: 25px;--> */
+        float: left;
+        line-height: 1.3em;
+      }
+      ul > li:nth-child(2n) {
+        background: #fff;
+        border: 2px solid #13178e;
+        color: blue;
+        margin-right: 50px;
+        word-wrap: break-word;
+        white-space: normal;
+        padding: 0 14px;
+        margin: 10px 0;
+      }
+      ul > li:nth-child(2n):before {
+        content: "user：";
+      }
+    </style>
 
-<body>
-  <textarea id="chat-log" cols="100" rows="10"></textarea><br />
-  <!-- <input id="chat-message-input" type="text" size="100" /><br />
-    <input id="chat-message-submit" type="button" value="Send" /> -->
+    <style>
+      label > input {
+        display: none; /* アップロードボタンのスタイルを無効にする */
+      }
+      label {
+        position: absolute;
+        right: 165px;
+        width: 72px;
+        height: 48px;
+        font-size: 16px;
+        line-height: 3em;
+        float: right;
+        color: #fff; /* ラベルテキストの色を指定する */
+        font-weight: bold;
+        background-color: #bcbcbc; /* ラベルの背景色を指定する */
+        text-align: center;
+        border: 1px solid #bbb; /* ラベルのボーダーを指定する */
+        border-radius: 4px; /*角丸*/
+        box-sizing: border-box;
+      }
+    </style>
+    <!-- <textarea id="chat-log" cols="100" rows="10"></textarea><br /> -->
 
-  <br>
-  <div id="container">
-    <div id="itemA">A</div>
-    <div id="itemB">B</div>
-    <div id="itemC">
-      <!-- ヘッダー部分② -->
-      <div id="bms_chat_header">
-        <!--ステータス-->
-        <div id="bms_chat_user_status">
-          <!--ステータスアイコン-->
-          <div id="bms_status_icon">🔽</div>
-          <!--ユーザー名-->
-          <div id="bms_chat_user_name">general</div>
-        </div>
-      </div>
-
-      <!-- タイムライン部分③ -->
-      <div id="bms_messages">
-
-        <!--メッセージ１（左側）-->
-        <div class="bms_message bms_left">
-          <div class="bms_message_box">
-            <p>user1</p>
-            <div class="bms_message_content">
-              <div class="bms_message_text">
-                わけわからないね</div>
-            </div>
+    <div id="container">
+      <div id="itemA">A</div>
+      <div id="itemB">B</div>
+      <div id="itemC">
+        <!-- ヘッダー部分② -->
+        <div id="bms_chat_header">
+          <!--ステータス-->
+          <div id="bms_chat_user_status">
+            <!--ステータスアイコン-->
+            <div id="bms_status_icon">🔽</div>
+            <!--ユーザー名-->
+            <!-- <div id="bms_chat_user_name">general</div>-->
+            <!--<textarea name="" id="jsi-name" cols="10" rows="1"></textarea>-->
+            <div name="" id="jsi-name"></div>
           </div>
         </div>
-        <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
 
-        <!--メッセージ２（右側）-->
-        <div class="bms_message bms_left">
-          <div class="bms_message_box">
-            <p>user2</p>
-            <div class="bms_message_content">
-              <div class="bms_message_text">
-                つらいンゴね</div>
-            </div>
-          </div>
+        <!-- タイムライン部分③ -->
+        <div id="bms_messages">
+          <ul id="jsi-board" style="list-style: none;">
+            <!--<ul id="jsi-board">-->
+          </ul>
         </div>
-        <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
-      </div>
 
-      <!-- テキストボックス、送信ボタン④ -->
-      <div id="bms_send">
-        <textarea id="bms_send_message"></textarea>
-        <div id="bms_send_btn">送信</div>
-        <!-- <a href="{ % url 'send_message' %}" id="bms_send_btn">送信</a> -->
-        <div id="bms_pic_btn">お絵かき</div>
-        {% csrf_token %}
-        <!-- <form action="{ % url 'send_message' %}" id="bms_send_message" method="post">
+        <!-- テキストボックス、送信ボタン④ -->
+        <div id="bms_send">
+          <!-- <textarea id="bms_send_message"></textarea>-->
+          <textarea name="" id="jsi-msg" cols="95" rows="2"></textarea>
+
+          <label for="file_upload">
+            画像
+            <input type="file" id="file_upload" />
+          </label>
+          <button id="bms_pic_btn">
+            絵
+          </button>
+          <form action="{% url 'sendMessage' %}" method="post">
             {% csrf_token %}
-            <button type="submit" id="bms_send_btn">送信</button>
-        </form> -->
+            <div id="bms_send_btn">
+              <div name="button" id="jsi-button">送信</div>
+            </div>
+          </form>
+          <!--   <a href="a2.html" id="bms_pic_btn">画像</a> -->
+          <!--</div>-->
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 
-<script>
-  var roomName = {{ room_name_json }};
-</script>
-<script src="{% static 'js/room.js' %}"></script>
-
+  <script>
+    var roomName = {{ room_name_json }};
+  </script>
+  <script src="{% static 'js/room.js' %}"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 </html>

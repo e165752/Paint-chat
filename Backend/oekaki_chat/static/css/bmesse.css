@@ -96,7 +96,8 @@
     }
 
 /* テキストエリア、送信ボタン④ */
-#bms_send {
+#bms_send { 
+    margin: 0px;
     background-color:#eee;/*タイムラインの色と同じにする*/
     border-right: 1px solid #ddd;
     border-left: 1px solid #ddd;
@@ -118,6 +119,10 @@
 
     }
     #bms_send_btn {
+        position:absolute;
+ 	right:13px;
+ 	width: 72px;
+        margin: 0 2px;
         width: 72px;
         height: 48px;
         font-size: 16px;
@@ -137,6 +142,8 @@
     }
 
 #bms_pic_btn {
+        position:absolute;
+ 	right:90px;
         width: 72px;
         height: 48px;
         font-size: 16px;
@@ -154,3 +161,4 @@
         background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
         cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
     }
+

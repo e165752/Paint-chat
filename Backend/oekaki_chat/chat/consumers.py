@@ -2,6 +2,8 @@ from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
 import urllib.parse
+from .scripts.log_utils import *
+
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
@@ -9,8 +11,8 @@ class ChatConsumer(WebsocketConsumer):
         self.room_group_name = 'chat_%s' % self.room_name
 
         # Join room group
-        print('[Info] type(self.room_name), self.room_name : ', type(self.room_name), self.room_name)
-        print('[Info] type(self.channel_name), self.channel_name : ', type(self.channel_name), self.channel_name)
+        # print_info('consumers', 'type(self.room_name), self.room_name :', type(self.room_name), self.room_name)
+        # print_info('consumers', 'type(self.channel_name), self.channel_name : ', type(self.channel_name), self.channel_name)
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name

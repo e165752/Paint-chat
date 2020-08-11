@@ -3,36 +3,65 @@ window.onload = function () {
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
+    
+    var board = document.querySelector('#jsi-board');
 
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        // document.querySelector('#chat-log').value += (message + '\n');
+        addText(message);
+        addText('user1')
     };
 
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
 
-    document.querySelector('#bms_send_message').focus();
-    document.querySelector('#bms_send_message').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#bms_send_btn').click();
-        }
-    };
+    //受け取り後の処理
+    function addText(json){
+        var msgDom = $('<li>');
+        msgDom.html(json);
+        
+        board.append(msgDom[0]);
+        console.log('[Info][chatSocket] message : ', msgDom[0]);
+    }
+ 
+    // document.querySelector('#bms_send_message').focus();
+    // document.querySelector('#bms_send_message').onkeyup = function(e) {
+    //     if (e.keyCode === 13) {  // enter, return
+    //         document.querySelector('#bms_send_btn').click();
+    //     }
+    // };
 
-    // 「送信」ボタン
+    //*--  「送信」ボタン  --*//
+    // CSRF token 設定
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     document.querySelector('#bms_send_btn').onclick = function(e) {
-        var messageInputDom = document.querySelector('#bms_send_message');
+        var messageInputDom = document.querySelector('#jsi-msg');
         var message = messageInputDom.value;
+
+        axios.post('/chat/message/', {
+            message : message,
+            loc_path : location.pathname,
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          }
+        );
+      
         chatSocket.send(JSON.stringify({
             'message': message
         }));
-
+        // 入力欄を初期化
         messageInputDom.value = '';
     };
 
-    // 「お絵かき」ボタン
+    //*--  「お絵かき」ボタン  --*//
     document.querySelector('#bms_pic_btn').onclick = function(e) {
         var win;
         if (!win || win.closed) {

@@ -63,7 +63,10 @@
         - [DjangoでGET／POSTから値を取得する方法](https://intellectual-curiosity.tokyo/2019/02/27/DjangoでGET／POSTから値を取得する方法)
 
 - ログサーバー（: server） local 版
-  - ローカルで試す場合
+  （ローカルで試す場合）
+  1. .env ↑ の `SERVER_BASE_URI` のコメント（`# `）を入れ替える。
+  2. Djangoアプリ を起動する。
+  3. ローカルサーバーを起動する。
     ```
     $ cd uiux_server_plus/
     $ python3 run.py
