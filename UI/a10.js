@@ -10,12 +10,12 @@ CHAT.fire = {
    // this.$name = $('#jsi-name');
     this.$textArea = $('#jsi-msg');
     this.$board = $('#jsi-board');
-    //this.$button = $('#jsi-button');
-this.$button = $('#jsi-button');
+    this.$button = $('#jsi-button');
 I
     //データベースと接続する。各自登録時に出たコードに書き換え。
     this.chatDataStore = new Firebase('https://<各自>.firebaseio.com/');
   },
+
 
   bindEvent:function(){
     var self = this;
