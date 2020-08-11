@@ -10,10 +10,8 @@ window.onload = function () {
         var data = JSON.parse(e.data);
         var message = data['message'];
         // document.querySelector('#chat-log').value += (message + '\n');
-
-        addText('user1')
         addText(message);
-        console.log('[Info][chatSocket] message : ', msgDom[0]);
+        addText('user1')
     };
 
     chatSocket.onclose = function(e) {
@@ -26,6 +24,7 @@ window.onload = function () {
         msgDom.html(json);
         
         board.append(msgDom[0]);
+        console.log('[Info][chatSocket] message : ', msgDom[0]);
     }
  
     // document.querySelector('#bms_send_message').focus();
@@ -35,18 +34,34 @@ window.onload = function () {
     //     }
     // };
 
-    // 「送信」ボタン
+    //*--  「送信」ボタン  --*//
+    // CSRF token 設定
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     document.querySelector('#bms_send_btn').onclick = function(e) {
         var messageInputDom = document.querySelector('#jsi-msg');
         var message = messageInputDom.value;
+
+        axios.post('/chat/message/', {
+            message : message,
+            loc_path : location.pathname,
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          }
+        );
+      
         chatSocket.send(JSON.stringify({
             'message': message
         }));
-
+        // 入力欄を初期化
         messageInputDom.value = '';
     };
 
-    // 「お絵かき」ボタン
+    //*--  「お絵かき」ボタン  --*//
     document.querySelector('#bms_pic_btn').onclick = function(e) {
         var win;
         if (!win || win.closed) {

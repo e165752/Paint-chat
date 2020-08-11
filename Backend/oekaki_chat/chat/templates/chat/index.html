@@ -13,7 +13,7 @@
     <h2>ルーム一覧</h2>
     <ul class="select-room-box">
     {% for room_name in room_list %}
-        <a href="/chat/{{ room_name }}">{{ room_name }}</a>
+        <a href="/chat/room/{{ room_name }}">{{ room_name }}</a>
         <br/>
     {% endfor %}
     </ul>
@@ -28,7 +28,7 @@
 
         document.querySelector('#room-name-submit').onclick = function(e) {
             var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
+            window.location.pathname = '/chat/room/' + roomName + '/';
         };
     </script>
 </body>

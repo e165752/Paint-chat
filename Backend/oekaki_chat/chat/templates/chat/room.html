@@ -94,9 +94,12 @@
           <button id="bms_pic_btn">
             絵
           </button>
-          <button id="bms_send_btn">
-            <div name="button" id="jsi-button">送信</div>
-          </button>
+          <form action="{% url 'sendMessage' %}" method="post">
+            {% csrf_token %}
+            <div id="bms_send_btn">
+              <div name="button" id="jsi-button">送信</div>
+            </div>
+          </form>
           <!--   <a href="a2.html" id="bms_pic_btn">画像</a> -->
           <!--</div>-->
         </div>
@@ -108,5 +111,6 @@
     var roomName = {{ room_name_json }};
   </script>
   <script src="{% static 'js/room.js' %}"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 </html>

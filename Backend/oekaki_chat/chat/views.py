@@ -59,28 +59,51 @@ def room(request, room_name):
 
 
 def send_message(request):
-    post_dict = json.loads(request.body)
+    if request.method == 'POST':
+        print('\n[Info]  ~~[send_message]~~')
+        # d = {'request': request, 'request.body': request.body}
+        # print('[info][views.py]', d)
 
-#     if request.method == 'POST':
-#         # request.bodyに入っている。
-#         message = post_dict['message']
-#         loc_path = post_dict['loc_path']
-#         room_name = loc_path.split('/')[-1]
-#         print('[Info] loc_path, room_name : ', loc_path, room_name)
-#         print('[Info] message : ', message)
+        # request.bodyに入っている。
+        post_dict = json.loads(request.body)
+        # データを抽出する。
+        message = post_dict['message']
+        print_info_x('views', locals().items(), message)
+        loc_path = post_dict['loc_path'].strip("/") 
+        room_name = loc_path.split('/')[-1]
+        # print_info_x('views', locals().items(), loc_path, room_name)
 
-#         # メッセージをサーバーに送信する。
-#         _client = UIUX_ClientxChat('--rooms') 
-#         # json_print("post", _client.post("messages", {"to":"hogesan","content":"hello"}))
-#         file_id = json_to_dict(_client.post("messages", {"to":"hogesan","content":"hello"}))#["result"]["file_id"]
-#         # サーバーからの返答の file_id を、メッセージ のコンテンツに追加して、メッセージを送信する。
-#         # res = {
-#         #   "result": {
-#         #     "file_id": "dotsubos-test_--rooms_20200811_170847_paint_scripts_tmp.jpg"
-#         #   }
-#         # }
-#         print('[Info] file_id : ', file_id)
+        # メッセージをサーバーに送信する。
+        _client = UIUX_ClientxChat(room_name) 
+        res = json_to_dict(_client.post("messages", {
+                "to": "hogesan",
+                "content": message,
+            }) )#["result"]["file_id"]
+        # res = {
+        #   "result": [
+        #     {
+        #       "id": 9,
+        #       "from": "None",
+        #       "to": "hogesan",
+        #       "content": "\u3069\u3046\u3060\uff01\uff01\uff01",
+        #       "timestamp": "2020-08-12_04:41:31",
+        #       "priority": 0,
+        #       "parent": -1
+        #     },
+        #     {
+        #       "id": 10,
+        #       "from": "None",
+        #       "to": "None",
+        #       "content": "\u3044\u3044\u611f\u3058\u3058\u3083\u306d\uff1fww",
+        #       "timestamp": "2020-08-12_04:44:48",
+        #       ・・・
+        #     }
+        #   ]
+        # }
+        print_info_x('views', locals().items(), res)
+        # 全件取得して確認
+        # json_print("get", _client.get("messages"))
         
-#     return HttpResponse()
+    return HttpResponse()
 
 
