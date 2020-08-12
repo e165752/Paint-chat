@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseServerError, JsonResponse
 from django.template import loader
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
@@ -28,7 +28,7 @@ def get_all_rooms():
     # all_rooms = json_print("get all users", client_rooms_.get("users"))
     all_rooms = json_to_dict(client_rooms_.get("users"))
     ## room の {"__room_name" : "__id"} 辞書を作成する。
-    print_info_x('views', locals().items(), all_rooms)
+    # print_info_x('views', locals().items(), all_rooms)
     if 'error' in all_rooms.keys():
         return []
     return [r['name'] for r in all_rooms["result"]]
@@ -58,28 +58,27 @@ def room(request, room_name):
 #     return HttpResponse()
 
 
-def send_message(request):
-    if request.method == 'POST':
-        print('\n[Info]  ~~[send_message]~~')
+def get_all_messages(request):
+    if request.method == 'POST' and request.body:
+        print('\n[Info]  ~~[get_all_messages]~~')
         # d = {'request': request, 'request.body': request.body}
         # print('[info][views.py]', d)
 
         # request.bodyに入っている。
         post_dict = json.loads(request.body)
         # データを抽出する。
-        message = post_dict['message']
-        print_info_x('views', locals().items(), message)
+        # socket_url = post_dict['socket_url']
+        # print_info_x('views', locals().items(), socket_url)
         loc_path = post_dict['loc_path'].strip("/") 
         room_name = loc_path.split('/')[-1]
-        # print_info_x('views', locals().items(), loc_path, room_name)
+        print_info_x('views', locals().items(), loc_path, room_name)
 
         # メッセージをサーバーに送信する。
-        _client = UIUX_ClientxChat(room_name) 
-        res = json_to_dict(_client.post("messages", {
-                "to": "hogesan",
-                "content": message,
-            }) )#["result"]["file_id"]
-        # res = {
+        _client = UIUX_ClientxChat(room_name)
+        all_messages_dict = json_to_dict(_client.get("messages"))
+        # 確認
+        # print_info_x('views', locals().items(), all_messages_dict)
+        # all_messages_dict = {
         #   "result": [
         #     {
         #       "id": 9,
@@ -100,10 +99,40 @@ def send_message(request):
         #     }
         #   ]
         # }
+        return JsonResponse(all_messages_dict)
+    else:
+        return HttpResponseServerError()
+
+
+
+def send_message(request):
+    if request.method == 'POST' and request.body:
+        print('\n[Info]  ~~[send_message]~~')
+        # d = {'request': request, 'request.body': request.body}
+        # print('[info][views.py]', d)
+
+        # request.bodyに入っている。
+        post_dict = json.loads(request.body)
+        # データを抽出する。
+        message = post_dict['message']
+        print_info_x('views', locals().items(), message)
+        loc_path = post_dict['loc_path'].strip("/") 
+        room_name = loc_path.split('/')[-1]
+        # print_info_x('views', locals().items(), loc_path, room_name)
+
+        # メッセージをサーバーに送信する。
+        _client = UIUX_ClientxChat(room_name) 
+        res = json_to_dict(_client.post("messages", {
+                "to": "hogesan",
+                "content": message,
+            }) )#["result"]["file_id"]
+        # res -> {'result': {'id': 23}
         print_info_x('views', locals().items(), res)
         # 全件取得して確認
         # json_print("get", _client.get("messages"))
         
-    return HttpResponse()
+        return JsonResponse(res['result'])
+    else:
+        return HttpResponseServerError()
 
 

@@ -1,21 +1,36 @@
 window.onload = function () {
 
-    var chatSocket = new WebSocket(
-        'ws://' + window.location.host +
-        '/ws/chat/' + roomName + '/');
+    // CSRF token 設定
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     
-    var board = document.querySelector('#jsi-board');
+    //*--  WebSocket 初期化  --*//
+    var socket_url = 'ws://' + window.location.host + '/ws/chat/' + roomName + '/';
+    var chatSocket = new WebSocket(socket_url);
+    console.log('[Info][room.js] chatSocket :', chatSocket);
 
+    var board = document.querySelector('#jsi-board');
+    //  [WebSocket] メッセージ受信時
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
-        var message = data['message'];
-        // document.querySelector('#chat-log').value += (message + '\n');
-        addText(message);
-        addText('user1')
+        // console.log("[Info][chatSocket.onmessage] data :", data)
+        var message_dict = JSON.parse(data['text_data'])
+        // console.log("[Info][chatSocket.onmessage] message_dict :", message_dict)
+        // console.log("[Info][chatSocket.onmessage] last_message_id < message_dict.id :", last_message_id, ' <? ', message_dict.id)
+        if (last_message_id < message_dict['id']) {
+            // document.querySelector('#chat-log').value += (message + '\n');
+            addText(message_dict['message'])
+            addText('-')
+            // 最終メッセージを更新（していいのはここだけ！）
+            last_message_id = message_dict['id'];
+        }
     };
-
+    //  [WebSocket] メッセージ切断時
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
+        // ウィンドウを再読み込み
+        // location.reload(true);
+        setTimeout("location.reload()", 5000);
     };
 
     //受け取り後の処理
@@ -24,8 +39,42 @@ window.onload = function () {
         msgDom.html(json);
         
         board.append(msgDom[0]);
-        console.log('[Info][chatSocket] message : ', msgDom[0]);
+        // console.log('[Info] message : ', msgDom[0]);
     }
+
+    // Room のチャットログを全件取得する。
+    var last_message_id = 0;
+    function getAllMessages() {
+        csrftoken = Cookies.get('csrftoken');
+        headers = { 'X-CSRFToken': csrftoken };
+        axios.post('/chat/messages/', {
+            // 'socket_url': socket_url,
+            'loc_path': location.pathname,
+            headers: headers,
+        })
+        .then(function (response) {
+            // console.log(response.data['result']);
+            if (response.data['result']) {
+                for (let [idx, m_json] of Object.entries(response.data['result'])) {
+                    // console.log('idx:' + idx + ' m_json:' + m_json);
+                    // console.log('m_json.content :' + m_json.content)
+                    if (last_message_id < m_json.id) {
+                        // console.log('[getAllMessages()] id :', m_json.id);
+                        chatSocket.send(JSON.stringify({
+                            'id': m_json.id,
+                            'message': m_json.content,
+                        }));
+                    }
+                }
+            } else {
+                console.log('[Error][getAllMessages()] message が受信できませんでした。')
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+  
  
     // document.querySelector('#bms_send_message').focus();
     // document.querySelector('#bms_send_message').onkeyup = function(e) {
@@ -35,9 +84,6 @@ window.onload = function () {
     // };
 
     //*--  「送信」ボタン  --*//
-    // CSRF token 設定
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     document.querySelector('#bms_send_btn').onclick = function(e) {
         var messageInputDom = document.querySelector('#jsi-msg');
         var message = messageInputDom.value;
@@ -47,16 +93,17 @@ window.onload = function () {
             loc_path : location.pathname,
           })
           .then(function (response) {
-            console.log(response);
-          })
+            console.log(response.data);
+            chatSocket.send(JSON.stringify({
+                'id': response.data.id,
+                'message': message
+            }));
+        })
           .catch(function (error) {
             console.log(error);
           }
         );
       
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
         // 入力欄を初期化
         messageInputDom.value = '';
     };
@@ -79,5 +126,14 @@ window.onload = function () {
             win.focus();
         }
     };
+
+
+    // サーバーからログをダウンロード（最初の1回目）
+    (function () {
+        getAllMessages();
+        console.log('[Info] getAllMessages() （初回実行）完了！');
+        // 定期的に、サーバーにアクセスして、更新がないか確認する（ポーリング）
+        const timer = setInterval(getAllMessages, 4000);
+    }());
 
 };
