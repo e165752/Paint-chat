@@ -2,10 +2,11 @@
 {% load static %}
 <html lang="ja">
   <head>
+    <!-- '切り替え: css/bmesse.css' or 'css/bmesse2.css'-->
     <link
       type="text/css"
       rel="stylesheet"
-      href="{% static 'css/bmesse.css' %}"
+      href="{% static 'css/bmesse2.css' %}"
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,49 +14,8 @@
   </head>
 
   <body>
-    <style>
-      /* ul > li:first-child {
-        color: black;
-        font-size: 25px;
-        float: left;
-        line-height: 1.3em;
-      }
-      ul > li:nth-child(2n) {
-        background: #fff;
-        border: 2px solid #13178e;
-        color: blue;
-        margin-right: 50px;
-        word-wrap: break-word;
-        white-space: normal;
-        padding: 0 14px;
-        margin: 10px 0;
-      }
-      ul > li:nth-child(2n):before {
-        content: "user：";
-      } */
-    </style>
 
-    <style>
-      label > input {
-        display: none; /* アップロードボタンのスタイルを無効にする */
-      }
-      label {
-        position: absolute;
-        right: 165px;
-        width: 72px;
-        height: 48px;
-        font-size: 16px;
-        line-height: 3em;
-        float: right;
-        color: #fff; /* ラベルテキストの色を指定する */
-        font-weight: bold;
-        background-color: #bcbcbc; /* ラベルの背景色を指定する */
-        text-align: center;
-        border: 1px solid #bbb; /* ラベルのボーダーを指定する */
-        border-radius: 4px; /*角丸*/
-        box-sizing: border-box;
-      }
-    </style>
+
     <!-- <textarea id="chat-log" cols="100" rows="10"></textarea><br /> -->
 
     <div id="container">
@@ -96,9 +56,9 @@
           </button>
           <form action="{% url 'sendMessage' %}" method="post">
             {% csrf_token %}
-            <div id="bms_send_btn">
-              <div name="button" id="jsi-button">送信</div>
-            </div>
+            <!-- <div id="bms_send_btn"> -->
+              <div name="button" id="bms_send_btn">送信</div>
+            <!-- </div> -->
           </form>
           <!--   <a href="a2.html" id="bms_pic_btn">画像</a> -->
           <!--</div>-->

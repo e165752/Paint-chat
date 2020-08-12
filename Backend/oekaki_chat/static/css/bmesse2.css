@@ -1,0 +1,169 @@
+/* スクロール禁止（PC用） */
+html, body{
+  /* height:100%; */
+  /* overflow: hidden; */
+}
+
+/* コンテナ */
+#container {
+    display: grid;
+    /* grid-template-rows: 100px 100px 1fr ; */
+    grid-template-columns: 150px 150px 1fr;
+}
+
+/* アイテム */
+#itemA {
+    /* grid-row: span 2; */
+    /*grid-row-start:1;
+    grid-row-end:2;*//* 縦 */
+    grid-column: 1 / 2;/* 横 */
+    background: #f88;
+}
+#itemB {
+    /* grid-row: span 2;/* 縦 */
+    grid-column: 2 / 3 ;/* 横 */
+    background: #8f8;
+}
+#itemC {
+    /* grid-row: span 2; /* 縦 */
+    /* height: 600px; */
+    grid-column: 3 / span 2;/* 横 */
+    background: #88f;
+}
+
+/* チャットの外側部分① */
+#bms_messages_container{
+    height: 100%;/*your_containerに対して100%になる */
+    width: 100%;/*your_containerに対して100%になる */
+    background-color: #eee;
+}
+
+/* ヘッダー部分② */
+#bms_chat_header {
+    padding: 6px;/*隙間調整*/
+    font-size: 16px;
+    height: 34px;
+    background: #ddd;
+    border: 1px solid #ccc;
+}
+    /* ステータスマークとユーザー名 */
+    #bms_chat_user_status {
+        float: left;/* bms_chat_headerに対して左寄せ */
+    }
+    /* ステータスマーク */
+    #bms_status_icon {
+        float: left;/* bms_chat_user_statusに対して左寄せ */
+        line-height: 2em;/*高さ調整*/
+    }
+    /* ユーザー名 */
+    #bms_chat_user_name {
+        float: left;/* bms_chat_user_statusに対して左寄せ */
+        line-height: 2em;/*高さ調整*/
+        padding-left: 8px;
+    }
+
+/* タイムライン部分③ */
+#bms_messages {
+    overflow: auto;/* スクロールを効かせつつ、メッセージがタイムラインの外に出ないようにする */
+    height:100%;/*テキストエリアが下に張り付く様にする*/
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    background-color: #eee;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2) inset;/*ヘッダーの下に影を入れる*/
+}
+    /* メッセージ全般のスタイル */
+    .bms_message {
+        margin: 0px;
+        padding: 0 14px;/*吹き出しがタイムラインの側面にひっつかない様に隙間を開ける*/
+        font-size: 16px;
+        word-wrap: break-word;/* 吹き出し内で自動で改行 */
+        white-space: normal;/*指定widthに合わせて、文字を自動的に改行*/
+    }
+.bms_message_content{
+                padding: 5px;/*文字や画像（コンテンツ）の外側に隙間を入れる*/
+            }
+    /* メッセージ１（左側） */
+    .bms_left {
+        float: left;/*吹き出しをbms_messagesに対して左寄せ*/
+        line-height: 1.3em;
+    }
+   .bms_left .bms_message_box {
+                color: #333;/*テキストを黒にする*/
+                background: #fff;
+                border: 2px solid #13178E;
+                border-radius: 0px 0px 0px 0px;/*左下だけ尖らせて吹き出し感を出す*/
+                margin-right: 50px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
+            }
+
+    /* 回り込みを解除 */
+    .bms_clear {
+        clear: both; /* 左メッセージと右メッセージの回り込み(float)の効果の干渉を防ぐために必要（これが無いと、自分より下のメッセージにfloatが影響する） */
+
+    }
+
+/* テキストエリア、送信ボタン④ */
+#bms_send {
+}
+
+#bms_send_message{}
+
+#bms_send_btn {
+  display: inline-block;
+}
+
+form{
+  display: inline-block;
+}
+
+#bms_send_btn:hover {
+  background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
+  cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
+}
+
+#bms_pic_btn {}
+
+#bms_pic_btn:hover {
+  background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
+  cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
+}
+
+    /* ul > li:first-child {
+      color: black;
+      font-size: 25px;
+      float: left;
+      line-height: 1.3em;
+    }
+    ul > li:nth-child(2n) {
+      background: #fff;
+      border: 2px solid #13178e;
+      color: blue;
+      margin-right: 50px;
+      word-wrap: break-word;
+      white-space: normal;
+      padding: 0 14px;
+      margin: 10px 0;
+    }
+    ul > li:nth-child(2n):before {
+      content: "user：";
+    } */
+
+
+    label > input {
+      display: none; /* アップロードボタンのスタイルを無効にする
+    }
+    label {
+      /* position: absolute;
+      right: 165px;
+      width: 72px;
+      height: 48px;
+      font-size: 16px;
+      line-height: 3em;
+      float: right; */
+      /* color: #fff;  ラベルテキストの色を指定する */
+      /* font-weight: bold; */
+      /* background-color: #bcbcbc;  ラベルの背景色を指定する */
+      /* text-align: center; */
+      /* border: 1px solid #bbb;  ラベルのボーダーを指定する */
+      /* border-radius: 4px; /*角丸*/
+      /* box-sizing: border-box; */
+    }
