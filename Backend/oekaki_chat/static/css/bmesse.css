@@ -1,7 +1,13 @@
+/* スクロール禁止（PC用） */
+html, body{
+  height:100%;
+  overflow: hidden;
+}
+
 /* コンテナ */
 #container {
     display: grid;
-    grid-template-rows: 100px 100px 1fr ;
+    /* grid-template-rows: 100px 100px 1fr ; */
     grid-template-columns: 150px 150px 1fr;
 }
 
@@ -59,7 +65,7 @@
 /* タイムライン部分③ */
 #bms_messages {
     overflow: auto;/* スクロールを効かせつつ、メッセージがタイムラインの外に出ないようにする */
-    height:100%;/*テキストエリアが下に張り付く様にする*/
+    height:90%;/*テキストエリアが下に張り付く様にする*/
     border-right: 1px solid #ddd;
     border-left: 1px solid #ddd;
     background-color: #eee;
@@ -96,7 +102,7 @@
     }
 
 /* テキストエリア、送信ボタン④ */
-#bms_send { 
+#bms_send {
     margin: 0px;
     background-color:#eee;/*タイムラインの色と同じにする*/
     border-right: 1px solid #ddd;
@@ -119,6 +125,7 @@
 
     }
     #bms_send_btn {
+      /* display: inline-block; */
        position:absolute;
  	right:13px;
         bottom:-33px;
@@ -160,4 +167,3 @@
         background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
         cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
     }
-
