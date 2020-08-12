@@ -3,7 +3,7 @@ window.onload = function () {
     // CSRF token 設定
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-    
+
     //*--  WebSocket 初期化  --*//
     var socket_url = 'ws://' + window.location.host + '/ws/chat/' + roomName + '/';
     var chatSocket = new WebSocket(socket_url);
@@ -19,8 +19,9 @@ window.onload = function () {
         // console.log("[Info][chatSocket.onmessage] last_message_id < message_dict.id :", last_message_id, ' <? ', message_dict.id)
         if (last_message_id < message_dict['id']) {
             // document.querySelector('#chat-log').value += (message + '\n');
+            addText('user :')
             addText(message_dict['message'])
-            addText('-')
+            addText('<br>')
             // 最終メッセージを更新（していいのはここだけ！）
             last_message_id = message_dict['id'];
         }
@@ -37,7 +38,7 @@ window.onload = function () {
     function addText(json){
         var msgDom = $('<li>');
         msgDom.html(json);
-        
+
         board.append(msgDom[0]);
         // console.log('[Info] message : ', msgDom[0]);
     }
@@ -74,8 +75,8 @@ window.onload = function () {
             console.log(error);
         });
     }
-  
- 
+
+
     // document.querySelector('#bms_send_message').focus();
     // document.querySelector('#bms_send_message').onkeyup = function(e) {
     //     if (e.keyCode === 13) {  // enter, return
@@ -103,7 +104,7 @@ window.onload = function () {
             console.log(error);
           }
         );
-      
+
         // 入力欄を初期化
         messageInputDom.value = '';
     };
