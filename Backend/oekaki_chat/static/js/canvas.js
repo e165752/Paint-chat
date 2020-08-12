@@ -261,6 +261,11 @@ window.addEventListener("load", () => {
 
     document.getElementById("download").href = base64img;
 
+    // テストコード　以下２行(L267~268)　と　canvas.htmlの<ul id=test_ul><\ul>　コメント外して
+    // var tag = `<li>画像です<br><br><img src="${base64img}" width="50%" height="50%"></li>`
+    // $('#test_ul').prepend(tag);
+
+
     // 親ウィンドウを更新する。
     window.opener.location.reload();
     window.close();
