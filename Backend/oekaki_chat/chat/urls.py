@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^room/(?P<room_name>[^/]+)/$', views.room, name='room'),
     url(r'^message/$', views.send_message, name='sendMessage'),
+    url(r'^messages/$', views.get_all_messages, name='getMessages'),
 ]
