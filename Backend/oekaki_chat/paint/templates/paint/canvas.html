@@ -42,7 +42,13 @@
             <input type="button" id="download" value="送信" onclick="sendBase64ToDjango">
             <i class="fas fa-backward fa-flip-horizontal"></i>
         </p> -->
-        <div class="save-sand-btn">
+
+        <!-- <p>
+          <input type="text" id="canvas_text" value="文字を入力">
+          <a href="#" id="input_text">文字を書く</a>
+        </p> -->
+
+        <div class="save-send-btn">
             <a href="#" id="save-btn">
               <i class="fas fa-download"></i>  保存
               <!-- <span>送信</span> -->
@@ -107,7 +113,7 @@
     <script src="{% static 'js/canvas.js' %}"></script>
   </body>
 
-  <dialog id="save-dialog">
+<dialog id="save-dialog">
 	<p>保存名</p>
   <p style="font-size: 13px">半角英数字のみ</p>
 	<p><input id='filename' type="text" placeholder="name"></p>

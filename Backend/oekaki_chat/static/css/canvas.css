@@ -172,6 +172,10 @@ img{
   transition: .4s;
 }
 
+form{
+  display: inline-block;
+}
+
 #download:hover, #save-btn:hover{
   background: #FFFEFA;
   color: #DB7C5E;
