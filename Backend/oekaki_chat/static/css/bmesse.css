@@ -114,7 +114,6 @@ html, body{
 }
     #jsi-msg{
         /* width: calc(100% - 75px);常に送信ボタンの横幅を引いたサイズに動的に計算*/
-        display: inline-block;
 	width: calc(100% - 250px);
         line-height: 16px;
         height: 48px;
@@ -134,9 +133,9 @@ html, body{
         line-height: 3em;
         color: #fff;
         font-weight: bold;
-        background: #bcbcbc;
+        background: #EC6D51;
         text-align: center;/*文字をボタン中央に表示*/
-        border: 1px solid #bbb;
+        border: 1px solid #EC6D51;
         border-radius: 4px;/*角丸*/
         box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
     }
@@ -157,9 +156,9 @@ form{
         line-height: 3em;
         color: #fff;
         font-weight: bold;
-        background: #bcbcbc;
+        background: #EC6D51;
         text-align: center;/*文字をボタン中央に表示*/
-        border: 1px solid #bbb;
+        border: 1px solid #EC6D51;
         border-radius: 4px;/*角丸*/
         box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
 
@@ -177,9 +176,9 @@ form{
         line-height: 3em;
         color: #fff;
         font-weight: bold;
-        background: #bcbcbc;
+        background: #EC6D51;
         text-align: center;/*文字をボタン中央に表示*/
-        border: 1px solid #bbb;
+        border: 1px solid #EC6D51;
         border-radius: 4px;/*角丸*/
         box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
 
