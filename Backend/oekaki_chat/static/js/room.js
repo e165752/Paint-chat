@@ -29,8 +29,6 @@ window.onload = function () {
                 // document.querySelector('#chat-log').value += (message + '\n');
                 addText(message_dict['message'])
                 addText('-')
-                // 最終メッセージを更新（していいのはここだけ！）
-                last_message_id = message_dict['id'];
             }
             // 最終メッセージを更新（していいのはここだけ！）
             last_message_id = message_dict['id'];
@@ -64,7 +62,7 @@ window.onload = function () {
             headers: headers,
         })
         .then(function (response) {
-            // console.log(response.data['result']);
+            console.log(response.data['result']);
             if (response.data['result']) {
                 for (let [idx, m_json] of Object.entries(response.data['result'])) {
                     // console.log('idx:' + idx + ' m_json:' + m_json);
@@ -73,7 +71,7 @@ window.onload = function () {
                         // console.log('[getAllMessages()] id :', m_json.id);
                         chatSocket.send(JSON.stringify({
                             'id': m_json.id,
-                            'type' : 'text',
+                            'type' : m_json.type,
                             'message': m_json.content,
                         }));
                     }

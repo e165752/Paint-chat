@@ -285,8 +285,8 @@ window.addEventListener("load", () => {
 
 
     // 親ウィンドウを更新する。
-    // window.opener.location.reload();
-    // window.close();
+    window.opener.location.reload();
+    window.close();
   };
 
   //キャンバスに文字を描く

@@ -3,6 +3,9 @@ import json
 import os
 from urllib.parse import urljoin
 from .log_utils import *
+import urllib.error
+import urllib.request
+import base64
 
 
 class UIUX_ClientxChat():
@@ -23,6 +26,20 @@ class UIUX_ClientxChat():
         print_info('scripts/communicate', '\n     GET ', rest_uri)
         response = requests.get(rest_uri, cookies={"key":self.sec_key})
         return response.text
+
+    def get_img(self, endpoint):
+        rest_uri = urljoin(self.room_uri, endpoint)
+        try:
+            with urllib.request.urlopen(rest_uri) as web_file:
+                data = web_file.read()
+                with open('py-logo.jpg', mode='wb') as local_file:
+                    local_file.write(data)
+                with open('py-logo.jpg', "rb") as image_file:
+                    data = base64.b64encode(image_file.read()).decode('utf-8')
+                    return data
+        except urllib.error.URLError as e:
+            print(e)
+
 
     def post(self, endpoint, data):
         print()

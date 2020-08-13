@@ -80,25 +80,20 @@ def get_all_messages(request):
         print_info_x('views', locals().items(), all_messages_dict)
         # all_messages_dict = {
         #   "result": [
-        #     {
-        #       "id": 9,
-        #       "from": "None",
-        #       "to": "hogesan",
-        #       "content": "\u3069\u3046\u3060\uff01\uff01\uff01",
-        #       "timestamp": "2020-08-12_04:41:31",
-        #       "priority": 0,
-        #       "parent": -1
-        #     },
-        #     {
-        #       "id": 10,
-        #       "from": "None",
-        #       "to": "None",
-        #       "content": "\u3044\u3044\u611f\u3058\u3058\u3083\u306d\uff1fww",
-        #       "timestamp": "2020-08-12_04:44:48",
-        #       ・・・
-        #     }
+        #     {'id': 47, 'from': 'None', 'to': 'hogesan', 'content': 'メッセージテスト確認', 'timestamp': '2020-08-13_12:54:27', 'priority': 0, 'parent': -1}, {'id': 48, 'from': 'None', 'to': 'None', 'content': 'dotsubos-test_img_test_20200813_125529_paint_scripts_tmp.jpg', 'timestamp': '2020-08-13_12:55:29', 'priority': 1, 'parent': -1}]}}
         #   ]
         # }
+        for idx in range(len(all_messages_dict["result"])):
+            if all_messages_dict["result"][idx]['priority'] == 0:  # text
+                all_messages_dict["result"][idx]['type'] = 'text'
+            else:
+                print(all_messages_dict["result"][idx]['content'])
+                image_base64 = "data:image/jpeg;base64, " + _client.get_img("jpeg/" + all_messages_dict["result"][idx]['content'])
+                # data = base64.b64encode(image_file.read()).decode('utf-8')
+                all_messages_dict["result"][idx]['content'] = image_base64
+                all_messages_dict["result"][idx]['type'] = 'img'
+
+        # print(all_messages_dict)
         return JsonResponse(all_messages_dict)
     else:
         return HttpResponseServerError()
