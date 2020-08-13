@@ -1,7 +1,7 @@
 /* スクロール禁止（PC用） */
 html, body{
-  height:100%;
-  overflow: hidden;
+ /* height:100%; */
+  /* overflow: hidden; */
 }
 
 /* コンテナ */
@@ -13,19 +13,19 @@ html, body{
 
 /* アイテム */
 #itemA {
-    grid-row: span 2;
-    /*grid-row-start:1;
+    /*grid-row: span 2;
+    grid-row-start:1;
     grid-row-end:2;*//* 縦 */
     grid-column: 1 / 2;/* 横 */
     background: #f88;
 }
 #itemB {
-    grid-row: span 2;/* 縦 */
+    /*grid-row: span 2; 縦 */
     grid-column: 2 / 3 ;/* 横 */
     background: #8f8;
 }
 #itemC {
-    grid-row: span 2; /* 縦 */
+    /*grid-row: span 2;  縦 */
     height: 600px;
     grid-column: 3 / span 2;/* 横 */
     background: #88f;
@@ -68,7 +68,7 @@ html, body{
     height:90%;/*テキストエリアが下に張り付く様にする*/
     border-right: 1px solid #ddd;
     border-left: 1px solid #ddd;
-    background-color: #eee;
+    background-color: #EBF4F4;
     box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2) inset;/*ヘッダーの下に影を入れる*/
 }
     /* メッセージ全般のスタイル */
@@ -82,18 +82,19 @@ html, body{
 .bms_message_content{
                 padding: 5px;/*文字や画像（コンテンツ）の外側に隙間を入れる*/
             }
-    /* メッセージ１（左側） */
+    /* メッセージ１（左側） 
     .bms_left {
-        float: left;/*吹き出しをbms_messagesに対して左寄せ*/
+        float: left;吹き出しをbms_messagesに対して左寄せ
         line-height: 1.3em;
     }
    .bms_left .bms_message_box {
-                color: #333;/*テキストを黒にする*/
+                color: #333;テキストを黒にする
                 background: #fff;
                 border: 2px solid #13178E;
-                border-radius: 0px 0px 0px 0px;/*左下だけ尖らせて吹き出し感を出す*/
-                margin-right: 50px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
+                border-radius: 0px 0px 0px 0px;左下だけ尖らせて吹き出し感を出す
+                margin-right: 50px;左側の発言だとわかる様に、吹き出し右側に隙間を入れる
             }
+*/
 
     /* 回り込みを解除 */
     .bms_clear {
@@ -111,9 +112,10 @@ html, body{
     height: 48px;
     padding: 4px;
 }
-    #bms_send_message{
+    #jsi-msg{
         /* width: calc(100% - 75px);常に送信ボタンの横幅を引いたサイズに動的に計算*/
-	width: calc(100% - 150px);
+        display: inline-block;
+	width: calc(100% - 250px);
         line-height: 16px;
         height: 48px;
         padding: 14px 6px 0px 6px;/*文字がテキストエリアの中心になる様に隙間調整*/
@@ -125,15 +127,11 @@ html, body{
 
     }
     #bms_send_btn {
-      /* display: inline-block; */
-        position:absolute;
-        bottom:124px;
- 	right:15px;
+        display: inline-block;
         width: 72px;
         height: 48px;
         font-size: 16px;
         line-height: 3em;
-        float: right;/*bms_sendに対して右寄せ*/
         color: #fff;
         font-weight: bold;
         background: #bcbcbc;
@@ -142,19 +140,21 @@ html, body{
         border-radius: 4px;/*角丸*/
         box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
     }
+
+form{
+  display: inline-block;
+}
     #bms_send_btn:hover {
         background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
         cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
     }
 
 #bms_pic_btn {
-        position:absolute;
- 	right:90px;
+        display: inline-block;
         width: 72px;
         height: 48px;
         font-size: 16px;
         line-height: 3em;
-        float: right;/*bms_sendに対して右寄せ*/
         color: #fff;
         font-weight: bold;
         background: #bcbcbc;
@@ -162,8 +162,32 @@ html, body{
         border: 1px solid #bbb;
         border-radius: 4px;/*角丸*/
         box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
+
     }
     #bms_pic_btn:hover {
+        background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
+        cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
+    }
+
+.bms_fil_btn {
+        display: inline-block;
+        width: 72px;
+        height: 48px;
+        font-size: 16px;
+        line-height: 3em;
+        color: #fff;
+        font-weight: bold;
+        background: #bcbcbc;
+        text-align: center;/*文字をボタン中央に表示*/
+        border: 1px solid #bbb;
+        border-radius: 4px;/*角丸*/
+        box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
+
+    }
+.bms_fil_btn input{
+display: none; 
+}
+    .bms_fil_btn:hover:hover {
         background: #13178E; /*マウスポインタを当てた時にアクティブな色になる*/
         cursor: pointer;/*マウスポインタを当てた時に、カーソルが指の形になる*/
     }

@@ -35,28 +35,7 @@
       } */
     </style>
 
-    <style>
-      label > input {
-        display: none; /* アップロードボタンのスタイルを無効にする */
-      }
-      label {
-        position: absolute;
-        right: 165px;
-        width: 72px;
-        height: 48px;
-        font-size: 16px;
-        line-height: 3em;
-        float: right;
-        color: #fff; /* ラベルテキストの色を指定する */
-        font-weight: bold;
-        background-color: #bcbcbc; /* ラベルの背景色を指定する */
-        text-align: center;
-        border: 1px solid #bbb; /* ラベルのボーダーを指定する */
-        border-radius: 4px; /*角丸*/
-        box-sizing: border-box;
-      }
-    </style>
-    <!-- <textarea id="chat-log" cols="100" rows="10"></textarea><br /> -->
+    <!-- <textarea id="chat-log" cols="90" rows="10"></textarea><br /> -->
 
     <div id="container">
       <div id="itemA">A</div>
@@ -70,7 +49,7 @@
             <div id="bms_status_icon">🔽</div>
             <!--ユーザー名-->
             <!-- <div id="bms_chat_user_name">general</div>-->
-            <!--<textarea name="" id="jsi-name" cols="10" rows="1"></textarea>-->
+            <!--<textarea name="" id="jsi-name" cols="900" rows="1"></textarea>-->
             <div name="" id="jsi-name"></div>
           </div>
         </div>
@@ -85,24 +64,31 @@
         <!-- テキストボックス、送信ボタン④ -->
         <div id="bms_send">
           <!-- <textarea id="bms_send_message"></textarea>-->
-          <textarea name="" id="jsi-msg" cols="95" rows="2"></textarea>
+          <textarea name="" id="jsi-msg" cols="" rows=""></textarea>
 
-          <label for="file_upload">
-            画像
-            <input type="file" id="file_upload" />
-          </label>
-          <button id="bms_pic_btn">
-            絵
-          </button>
+
+
+           <div id="bms_pic_btn">
+             絵
+           </div>
+ 
+           <label for="file_upload" class="bms_fil_btn">
+             画像
+             <input type="file" id="file_upload"/>
+           </label>
+
           <form action="{% url 'sendMessage' %}" method="post">
-            {% csrf_token %}
-            <div id="bms_send_btn">
-              <div name="button" id="jsi-button">送信</div>
-            </div>
-          </form>
-          <!--   <a href="a2.html" id="bms_pic_btn">画像</a> -->
-          <!--</div>-->
+             {% csrf_token %}
+             <div id="bms_send_btn">
+               <div name="button" id="jsi-button">送信</div>
+             </div>
+           </form>
+
+
+
         </div>
+
+
       </div>
     </div>
   </body>
