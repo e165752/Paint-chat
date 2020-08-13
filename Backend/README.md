@@ -31,9 +31,9 @@
       ```
   2. データベースの初期化
       ```
-      cd uiux_server_plus/DB
-      python3 create_tables.py
-      cd ../..
+      cd uiux_server_plus/
+      python3 DB/create_tables.py
+      cd ..
       ```
   3. brew （やらなくてもできた）
       ```
