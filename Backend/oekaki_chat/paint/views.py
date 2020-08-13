@@ -26,45 +26,43 @@ def receiveAndSendJPG(request):
         print('\n[Info]  ~~[receiveAndSendJPG]~~')
         # request.bodyに入っている。
         post_dict = json.loads(request.body)
-        # データを抽出する。
-        canvasData = post_dict['imgBase64']
-        # print_info_x('views', locals().items(), canvasData)
+
+        # データを抽出する。(JS で jpeg ファイルに保存するのは、あまりよろしくないらしいので、Python でやる方向で)
+        jpg_path = convert_base64_to_jpg_file(post_dict['imgBase64'])
         loc_path = post_dict['loc_path'].strip("/") 
         room_name = loc_path.split('/')[-1]
-        print_info_x('views', locals().items(), loc_path, room_name)
-
-        im_base64 = re.sub('^data:image/.+;base64,', '', canvasData)
-        # base64 str を表示してみる。 
-        # print(im_base64)
-        im = Image.open(BytesIO(base64.b64decode(im_base64)))
-        # 画像を表示してみる。
-        # im.show()
-
-        # tmp.jpg ファイルにするのが一番楽だったので、それで。
-        jpg_path = 'paint/scripts/tmp.jpg'
-        im.save(jpg_path, quality=100)
+        # print_info_x('views', locals().items(), loc_path, room_name)  # 確認
 
         # 画像をサーバーに送信する。
         _client = UIUX_ClientxChat(room_name) 
-        # json_print("updload", _client.upload("jpeg", jpg_path, 'image/jpeg'))
         img_file_name = json_to_dict(_client.upload("jpeg", jpg_path, 'image/jpeg'))["result"]["file_id"]
-        # サーバーからの返答の file_id を、メッセージ のコンテンツに追加して、メッセージを送信する。
         # res = {
         #   "result": {
         #     "file_id": "dotsubos-test_--rooms_20200811_170847_paint_scripts_tmp.jpg"
         #   }
         # }
-        print_info_x('views', locals().items(), img_file_name)
 
+        # サーバーからの返答の file_id を、messages の content に追加して、メッセージを送信する。
+        content_img_src = '<img src="{}jpeg/{}" width="50%" height="50%">'.format(_client.room_uri, img_file_name)
+        # print_info_x('views', locals().items(), content_img_src)  # 確認
         res = json_to_dict(_client.post("messages", {
-                "priority": 1,  # textは 0,  imgは 1
-                "content": img_file_name,
+                # "priority": 1,  # textは 0,  imgは 1
+                "content": content_img_src,
             }) )
-        # res -> {'result': {'id': 23}
         print_info_x('views', locals().items(), res)
+        # res -> {'result': {'id': 23}
 
-        
         return JsonResponse(res['result'])
     else:
         return HttpResponseServerError()
+
+
+def convert_base64_to_jpg_file(imgBase64, jpg_path='paint/scripts/tmp.jpg'):
+    im_base64 = re.sub('^data:image/.+;base64,', '', imgBase64)
+    im = Image.open(BytesIO(base64.b64decode(im_base64)))
+    # im.show()    # 画像を表示してみる。
+    # ファイル（tmp.jpg）にするのが一番楽だったので、それで。
+    im.save(jpg_path, quality=100)
+    return jpg_path
+
 

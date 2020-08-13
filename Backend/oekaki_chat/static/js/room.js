@@ -13,26 +13,11 @@ window.onload = function () {
     //  [WebSocket] メッセージ受信時
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
-        // console.log("[Info][chatSocket.onmessage] data :", data)
-        var message_dict = JSON.parse(data['text_data'])
-        // console.log("[Info][chatSocket.onmessage] message_dict :", message_dict)
-        // console.log("[Info][chatSocket.onmessage] last_message_id < message_dict.id :", last_message_id, ' <? ', message_dict.id)
+        var message_dict = JSON.parse(data['text_data']);   // 'text_data' (key) は、WebSocket側で調整可能。
         if (last_message_id < message_dict['id']) {
-            console.log("[Info][chatSocket.onmessage] message_dict['type'] :", message_dict['type'])
-            if (message_dict['type'] == 'img') {
-                // 画像の場合
-                // document.querySelector('#chat-log').value += (message + '\n');
-                addText(`<img src="${message_dict['message']}" width="50%" height="50%">`)
-                addText('-')
-            } else if (message_dict['type'] == 'text') {
-                // Text の場合
-                // document.querySelector('#chat-log').value += (message + '\n');
-                addText(message_dict['message'])
-                addText('-')
-                // 最終メッセージを更新（していいのはここだけ！）
-                last_message_id = message_dict['id'];
-            }
-            // 最終メッセージを更新（していいのはここだけ！）
+            addText(message_dict['message'])
+            addText('-')
+            // 表示済みメッセージの id をメモ（していいのはここだけ！）
             last_message_id = message_dict['id'];
         }
     };
@@ -41,7 +26,7 @@ window.onload = function () {
         console.error('Chat socket closed unexpectedly');
         // ウィンドウを再読み込み
         // location.reload(true);
-        setTimeout("location.reload()", 5000);
+        setTimeout("location.reload()", 1500);
     };
 
     //受け取り後の処理
@@ -59,21 +44,15 @@ window.onload = function () {
         csrftoken = Cookies.get('csrftoken');
         headers = { 'X-CSRFToken': csrftoken };
         axios.post('/chat/messages/', {
-            // 'socket_url': socket_url,
             'loc_path': location.pathname,
             headers: headers,
         })
         .then(function (response) {
-            // console.log(response.data['result']);
             if (response.data['result']) {
                 for (let [idx, m_json] of Object.entries(response.data['result'])) {
-                    // console.log('idx:' + idx + ' m_json:' + m_json);
-                    // console.log('m_json.content :' + m_json.content)
                     if (last_message_id < m_json.id) {
-                        // console.log('[getAllMessages()] id :', m_json.id);
                         chatSocket.send(JSON.stringify({
                             'id': m_json.id,
-                            'type' : 'text',
                             'message': m_json.content,
                         }));
                     }
@@ -105,10 +84,9 @@ window.onload = function () {
             loc_path : location.pathname,
           })
           .then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
             chatSocket.send(JSON.stringify({
                 'id': response.data.id,
-                'type' : 'text',
                 'message': message
             }));
         })

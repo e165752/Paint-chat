@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
     console.log("[Info][chatSocket.onmessage] roomName :", roomName)
     var socket_url = 'ws://' + window.location.host + '/ws/chat/' + roomName + '/';
     var chatSocket = new WebSocket(socket_url);
-    console.log('[Info][room.js] chatSocket :', chatSocket);
+    console.log('[Info][init] chatSocket :', chatSocket);
 
     
   const canvas = document.querySelector("#draw-area");
@@ -253,22 +253,20 @@ window.addEventListener("load", () => {
   // 保存して送信
   const button = document.getElementById("download");
   button.onclick = function() {
-    console.info('[Info] download onclick()')
     let canvas = document.getElementById("draw-area");
     // console.dir(canvas)
     let base64img = canvas.toDataURL("image/jpeg");
     // document.getElementById("download").href = base64;
 
-    console.log(location.pathname)
+    // console.log(location.pathname)
     axios.post('/paint/receive/', {
       imgBase64: base64img,
       loc_path : location.pathname,
     })
     .then(function (response) {
-      console.log(response);
+    //   console.log(response);
       chatSocket.send(JSON.stringify({
         'id': response.data.id,
-        'type' : 'img',
         'message': base64img
       }));
     })
@@ -277,16 +275,14 @@ window.addEventListener("load", () => {
     });
 
     document.getElementById("download").href = base64img;
-    
 
     // テストコード　以下２行(L267~268)　と　canvas.htmlの<ul id=test_ul><\ul>　コメント外して
     // var tag = `<li>画像です<br><br><img src="${base64img}" width="50%" height="50%"></li>`
     // $('#test_ul').prepend(tag);
 
-
     // 親ウィンドウを更新する。
-    // window.opener.location.reload();
-    // window.close();
+    window.opener.location.reload();
+    window.close();
   };
 
   //キャンバスに文字を描く
