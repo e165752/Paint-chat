@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template.context_processors import csrf
-from django.http import QueryDict, HttpResponse
+from django.http import QueryDict, HttpResponse, HttpResponseServerError, JsonResponse
 
 from PIL import Image
 from io import BytesIO
@@ -10,12 +10,15 @@ import re
 
 from .scripts.communicate import *
 from .scripts.log_utils import *
+from django.utils.safestring import mark_safe
 
 
 # Create your views here.
 def canvas(request, room_name):
     print_info_x('views', locals().items(), room_name)
-    return render(request, 'paint/canvas.html', {})
+    return render(request, 'paint/canvas.html', {
+        'room_name_json': mark_safe(json.dumps(room_name))
+    })
 
 
 def receiveAndSendJPG(request):
@@ -44,14 +47,24 @@ def receiveAndSendJPG(request):
         # 画像をサーバーに送信する。
         _client = UIUX_ClientxChat(room_name) 
         # json_print("updload", _client.upload("jpeg", jpg_path, 'image/jpeg'))
-        file_id = json_to_dict(_client.upload("jpeg", jpg_path, 'image/jpeg'))["result"]["file_id"]
+        img_file_name = json_to_dict(_client.upload("jpeg", jpg_path, 'image/jpeg'))["result"]["file_id"]
         # サーバーからの返答の file_id を、メッセージ のコンテンツに追加して、メッセージを送信する。
         # res = {
         #   "result": {
         #     "file_id": "dotsubos-test_--rooms_20200811_170847_paint_scripts_tmp.jpg"
         #   }
         # }
-        print_info_x('views', locals().items(), file_id)
+        print_info_x('views', locals().items(), img_file_name)
+
+        res = json_to_dict(_client.post("messages", {
+                "priority": 1,  # textは 0,  imgは 1
+                "content": img_file_name,
+            }) )
+        # res -> {'result': {'id': 23}
+        print_info_x('views', locals().items(), res)
+
         
-    return HttpResponse()
+        return JsonResponse(res['result'])
+    else:
+        return HttpResponseServerError()
 

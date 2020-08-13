@@ -77,7 +77,7 @@ def get_all_messages(request):
         _client = UIUX_ClientxChat(room_name)
         all_messages_dict = json_to_dict(_client.get("messages"))
         # 確認
-        # print_info_x('views', locals().items(), all_messages_dict)
+        print_info_x('views', locals().items(), all_messages_dict)
         # all_messages_dict = {
         #   "result": [
         #     {

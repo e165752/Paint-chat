@@ -1,4 +1,16 @@
 window.addEventListener("load", () => {
+
+    // CSRF token 設定
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    
+    //*--  WebSocket 初期化  --*//
+    console.log("[Info][chatSocket.onmessage] roomName :", roomName)
+    var socket_url = 'ws://' + window.location.host + '/ws/chat/' + roomName + '/';
+    var chatSocket = new WebSocket(socket_url);
+    console.log('[Info][room.js] chatSocket :', chatSocket);
+
+    
   const canvas = document.querySelector("#draw-area");
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "#FFFFFF"; //筆に白い絵の具をつけて
@@ -254,12 +266,18 @@ window.addEventListener("load", () => {
     })
     .then(function (response) {
       console.log(response);
+      chatSocket.send(JSON.stringify({
+        'id': response.data.id,
+        'type' : 'img',
+        'message': base64img
+      }));
     })
     .catch(function (error) {
       console.log(error);
     });
 
     document.getElementById("download").href = base64img;
+    
 
     // テストコード　以下２行(L267~268)　と　canvas.htmlの<ul id=test_ul><\ul>　コメント外して
     // var tag = `<li>画像です<br><br><img src="${base64img}" width="50%" height="50%"></li>`
@@ -267,8 +285,8 @@ window.addEventListener("load", () => {
 
 
     // 親ウィンドウを更新する。
-    window.opener.location.reload();
-    window.close();
+    // window.opener.location.reload();
+    // window.close();
   };
 
   //キャンバスに文字を描く

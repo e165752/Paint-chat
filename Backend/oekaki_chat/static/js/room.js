@@ -18,10 +18,20 @@ window.onload = function () {
         // console.log("[Info][chatSocket.onmessage] message_dict :", message_dict)
         // console.log("[Info][chatSocket.onmessage] last_message_id < message_dict.id :", last_message_id, ' <? ', message_dict.id)
         if (last_message_id < message_dict['id']) {
-            // document.querySelector('#chat-log').value += (message + '\n');
-            addText('user :')
-            addText(message_dict['message'])
-            addText('<br>')
+            console.log("[Info][chatSocket.onmessage] message_dict['type'] :", message_dict['type'])
+            if (message_dict['type'] == 'img') {
+                // 画像の場合
+                // document.querySelector('#chat-log').value += (message + '\n');
+                addText(`<img src="${message_dict['message']}" width="50%" height="50%">`)
+                addText('-')
+            } else if (message_dict['type'] == 'text') {
+                // Text の場合
+                // document.querySelector('#chat-log').value += (message + '\n');
+                addText(message_dict['message'])
+                addText('-')
+                // 最終メッセージを更新（していいのはここだけ！）
+                last_message_id = message_dict['id'];
+            }
             // 最終メッセージを更新（していいのはここだけ！）
             last_message_id = message_dict['id'];
         }
@@ -63,6 +73,7 @@ window.onload = function () {
                         // console.log('[getAllMessages()] id :', m_json.id);
                         chatSocket.send(JSON.stringify({
                             'id': m_json.id,
+                            'type' : 'text',
                             'message': m_json.content,
                         }));
                     }
@@ -97,6 +108,7 @@ window.onload = function () {
             console.log(response.data);
             chatSocket.send(JSON.stringify({
                 'id': response.data.id,
+                'type' : 'text',
                 'message': message
             }));
         })
@@ -134,7 +146,7 @@ window.onload = function () {
         getAllMessages();
         console.log('[Info] getAllMessages() （初回実行）完了！');
         // 定期的に、サーバーにアクセスして、更新がないか確認する（ポーリング）
-        const timer = setInterval(getAllMessages, 4000);
+        const timer = setInterval(getAllMessages, 10000);
     }());
 
 };
